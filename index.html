@@ -444,6 +444,40 @@
       });
     }
 
+    // ==================== FIRMA ELECTRÓNICA SIN FONDO (CANVAS TRANSPARENTE) ====================
+    function generarFirmaElectronicaTransparente() {
+      const canvas = document.createElement("canvas");
+      canvas.width = 420;
+      canvas.height = 170;
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = "#0f172a";
+      ctx.lineWidth = 4.2;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      // Trazo caligráfico principal de firma electrónica
+      ctx.beginPath();
+      ctx.moveTo(45, 112);
+      ctx.bezierCurveTo(75, 36, 128, 32, 134, 108);
+      ctx.bezierCurveTo(138, 135, 112, 128, 126, 94);
+      ctx.bezierCurveTo(148, 46, 198, 42, 206, 106);
+      ctx.bezierCurveTo(212, 136, 192, 132, 212, 92);
+      ctx.bezierCurveTo(238, 45, 295, 48, 315, 104);
+      ctx.bezierCurveTo(324, 126, 355, 114, 382, 98);
+      ctx.stroke();
+
+      // Rúbrica inferior con trazo firme
+      ctx.lineWidth = 3.2;
+      ctx.beginPath();
+      ctx.moveTo(28, 124);
+      ctx.bezierCurveTo(125, 144, 255, 142, 392, 118);
+      ctx.stroke();
+
+      return canvas.toDataURL("image/png");
+    }
+
     function dibujarImagenConOpacidad(docPdf, imgData, x, y, w, h, opacidad) {
       if (!imgData) return;
       docPdf.saveGraphicsState();
@@ -588,13 +622,13 @@
       const valTotalFmt = `${Number(p.monto).toFixed(2).replace('.', ',')}`;
       const valGastos = p.gastosEmision || valTotalFmt;
 
-      const [qrDataUrl, logoIzq, logoDer, selloImg, firmaImg] = await Promise.all([
+      const [qrDataUrl, logoIzq, logoDer, selloImg] = await Promise.all([
         generarQRBase64(urlVerificacion),
         cargarImagenLocal("logo-izq.png"),
         cargarImagenLocal("logo-der.png"),
-        cargarImagenLocal("sello.png"),
-        cargarImagenLocal("firma.png")
+        cargarImagenLocal("sello.png")
       ]);
+      const firmaImg = generarFirmaElectronicaTransparente();
 
       // ==================== HOJA 1 ====================
       dibujarImagenConOpacidad(docPdf, logoIzq, 18, 48, 180, 180, 0.12);
