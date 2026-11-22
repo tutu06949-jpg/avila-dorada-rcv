@@ -19,14 +19,15 @@
 
   <!-- HEADER -->
   <header class="gold-gradient text-white shadow-lg sticky top-0 z-40">
-    <div class="max-w-5xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+    <div class="max-w-5xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-400 font-extrabold text-xl">
-          AD
+        <div class="w-12 h-12 rounded-xl bg-white/10 border border-amber-400/50 flex items-center justify-center overflow-hidden shrink-0">
+          <img src="logo-izq.png" alt="Logo" class="w-full h-full object-contain p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <span style="display:none;" class="w-full h-full items-center justify-center text-amber-400 font-extrabold text-xl">AD</span>
         </div>
         <div>
           <h1 class="text-lg sm:text-xl font-extrabold tracking-tight text-amber-400">SEGUROS ÁVILA DORADA</h1>
-          <p class="text-xs text-slate-300">Responsabilidad Civil Vehicular (RCV) • República Bolivariana de Venezuela</p>
+          <p class="text-xs text-slate-300">Responsabilidad Civil Vehicular (RCV) • Venezuela</p>
         </div>
       </div>
 
@@ -53,48 +54,52 @@
         <div class="border-b border-slate-100 pb-4 mb-6">
           <span class="inline-block px-2.5 py-1 text-xs font-bold bg-amber-100 text-amber-800 rounded-full mb-2">EMISIÓN DIGITAL INMEDIATA</span>
           <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Cotiza y Genera tu Póliza RCV</h2>
-          <p class="text-sm text-slate-500 mt-1">Completa los datos del propietario y del vehículo exactamente como aparecen en el Certificado de Registro (Título).</p>
+          <p class="text-sm text-slate-500 mt-1">Completa los datos del propietario y del vehículo exactamente como aparecen en el Certificado de Registro.</p>
         </div>
 
         <form id="policyForm" class="space-y-6">
-          <!-- PLANES -->
+          <!-- PLANES Y PRECIOS CON DESGLOSE TCR -->
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">1. Selecciona el Tipo de Vehículo / Cobertura Anual</label>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">1. Selecciona el Tipo de Vehículo y Cobertura Anual</label>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="planCards">
               <label class="cursor-pointer border-2 border-amber-500 bg-amber-50/40 rounded-xl p-3.5 transition plan-option">
-                <input type="radio" name="plan" value="MOTO|12|Motocicleta" class="hidden" checked>
+                <input type="radio" name="plan" value="MOTO|12|Motocicleta|550,00 TCR|700,00 TCR|4,00|4,00|4,00" class="hidden" checked>
                 <div class="flex justify-between items-start">
                   <span class="font-bold text-slate-900 text-sm">Motocicleta</span>
                   <span class="text-lg font-extrabold text-amber-600">$12</span>
                 </div>
-                <p class="text-xs text-slate-500 mt-1">Vigencia 1 Año • Cobertura Nacional</p>
+                <p class="text-[11px] text-slate-600 mt-1">Cosas: 550 TCR • Personas: 700 TCR</p>
+                <p class="text-[11px] text-slate-400">Vigencia 1 Año • Nacional</p>
               </label>
 
               <label class="cursor-pointer border-2 border-slate-200 hover:border-amber-400 rounded-xl p-3.5 transition plan-option">
-                <input type="radio" name="plan" value="PARTICULAR|15|Vehículo Particular / Paseo" class="hidden">
+                <input type="radio" name="plan" value="PARTICULAR|15|Vehículo Particular / Paseo|680,00 TCR|850,00 TCR|5,50|5,50|4,00" class="hidden">
                 <div class="flex justify-between items-start">
                   <span class="font-bold text-slate-900 text-sm">Particular / Paseo</span>
                   <span class="text-lg font-extrabold text-amber-600">$15</span>
                 </div>
-                <p class="text-xs text-slate-500 mt-1">Sedán, Hatchback, Coupé • 1 Año</p>
+                <p class="text-[11px] text-slate-600 mt-1">Cosas: 680 TCR • Personas: 850 TCR</p>
+                <p class="text-[11px] text-slate-400">Sedán, Hatchback, Coupé</p>
               </label>
 
               <label class="cursor-pointer border-2 border-slate-200 hover:border-amber-400 rounded-xl p-3.5 transition plan-option">
-                <input type="radio" name="plan" value="CAMIONETA|20|Camioneta / Pick-Up / Rústico" class="hidden">
+                <input type="radio" name="plan" value="CAMIONETA|20|Camioneta / Pick-Up / Rústico|900,00 TCR|1.150,00 TCR|7,50|7,50|5,00" class="hidden">
                 <div class="flex justify-between items-start">
                   <span class="font-bold text-slate-900 text-sm">Camioneta / Pick-Up</span>
                   <span class="text-lg font-extrabold text-amber-600">$20</span>
                 </div>
-                <p class="text-xs text-slate-500 mt-1">SUV, 4x4, Vans, Pick-Up • 1 Año</p>
+                <p class="text-[11px] text-slate-600 mt-1">Cosas: 900 TCR • Personas: 1.150 TCR</p>
+                <p class="text-[11px] text-slate-400">SUV, 4x4, Vans, Pick-Up</p>
               </label>
 
               <label class="cursor-pointer border-2 border-slate-200 hover:border-amber-400 rounded-xl p-3.5 transition plan-option">
-                <input type="radio" name="plan" value="CARGA|25|Carga / Transporte / Camión" class="hidden">
+                <input type="radio" name="plan" value="CARGA|25|Carga / Transporte / Camión|1.200,00 TCR|1.500,00 TCR|9,50|9,50|6,00" class="hidden">
                 <div class="flex justify-between items-start">
                   <span class="font-bold text-slate-900 text-sm">Carga / Transporte</span>
                   <span class="text-lg font-extrabold text-amber-600">$25</span>
                 </div>
-                <p class="text-xs text-slate-500 mt-1">Camiones 350/750, Busetas • 1 Año</p>
+                <p class="text-[11px] text-slate-600 mt-1">Cosas: 1.200 TCR • Personas: 1.500 TCR</p>
+                <p class="text-[11px] text-slate-400">Camiones 350/750, Busetas</p>
               </label>
             </div>
           </div>
@@ -122,7 +127,7 @@
             </div>
           </div>
 
-          <!-- DATOS DEL VEHÍCULO -->
+          <!-- DATOS DEL VEHÍCULO (SIN SERIAL DE MOTOR) -->
           <div>
             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">3. Datos del Vehículo</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -155,20 +160,16 @@
                   <option value="COMERCIAL">COMERCIAL</option>
                 </select>
               </div>
-              <div class="sm:col-span-2 lg:col-span-2">
+              <div class="sm:col-span-2 lg:col-span-3">
                 <label class="block text-xs font-semibold text-slate-700 mb-1">Serial de Carrocería (NIV / VIN) *</label>
                 <input type="text" id="serialCarroceria" required placeholder="Ej: 8XA12345678901234" class="w-full uppercase font-mono rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500" />
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-slate-700 mb-1">Serial de Motor *</label>
-                <input type="text" id="serialMotor" required placeholder="Ej: SQR473F123456" class="w-full uppercase font-mono rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500" />
               </div>
             </div>
           </div>
 
           <div class="pt-2">
             <button type="submit" id="btnSubmit" class="w-full gold-btn text-white font-extrabold py-3.5 px-6 rounded-xl shadow-md transition flex items-center justify-center gap-2 text-base">
-              <span>Generar Póliza en la Nube y Ver Datos de Pago</span>
+              <span>Generar Póliza en la Nube y Descargar PDF</span>
             </button>
           </div>
         </form>
@@ -185,6 +186,22 @@
             <p class="text-xs text-slate-500">Monto a Cancelar</p>
             <p class="text-2xl font-extrabold text-amber-600" id="resMonto">$15 USD</p>
           </div>
+        </div>
+
+        <!-- BOTONES DIRECTOS DE DESCARGA Y APERTURA EN TELÉFONO -->
+        <div class="bg-amber-50 border border-amber-300 rounded-xl p-4 space-y-3">
+          <p class="text-xs font-bold text-amber-900 uppercase tracking-wide">Tu Póliza PDF (2 Hojas con QR) está lista:</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button onclick="descargarPDFActual('descargar')" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold py-4 px-5 rounded-xl shadow transition flex items-center justify-center gap-2 text-sm sm:text-base">
+              ⬇️ DESCARGAR PÓLIZA EN PDF AHORA
+            </button>
+            <button onclick="descargarPDFActual('abrir')" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-extrabold py-4 px-5 rounded-xl shadow transition flex items-center justify-center gap-2 text-sm sm:text-base">
+              📄 ABRIR PDF EN EL TELÉFONO
+            </button>
+          </div>
+          <p class="text-[11px] text-slate-600 text-center">
+            Si estás en el teléfono, el archivo se guarda directo en tu carpeta <strong>Descargas</strong> y puedes abrirlo con WPS Office o cualquier visor PDF.
+          </p>
         </div>
 
         <!-- DATOS DE PAGO MÓVIL -->
@@ -214,11 +231,7 @@
           </p>
         </div>
 
-        <!-- BOTONES DE ACCIÓN -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <button onclick="descargarPDFActual()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-5 rounded-xl transition flex items-center justify-center gap-2">
-            Descargar Póliza en PDF (2 Hojas + QR)
-          </button>
+        <div>
           <a id="btnWhatsapp" href="#" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 px-5 rounded-xl transition flex items-center justify-center gap-2 text-center">
             Enviar Comprobante por WhatsApp
           </a>
@@ -248,7 +261,6 @@
 
     <!-- ==================== TAB 3: PANEL ADMIN ==================== -->
     <section id="view-admin" class="hidden space-y-6">
-      <!-- LOGIN ADMIN -->
       <div id="adminLoginBox" class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
         <h2 class="text-lg font-extrabold text-slate-900 mb-1">Acceso de Administrador</h2>
         <p class="text-xs text-slate-500 mb-4">Ingresa tu clave para gestionar y activar pólizas en la nube.</p>
@@ -260,7 +272,6 @@
         </form>
       </div>
 
-      <!-- DASHBOARD ADMIN -->
       <div id="adminDashboard" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-7 space-y-5">
         <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
           <div>
@@ -285,7 +296,6 @@
 
   </main>
 
-  <!-- CONTENEDOR OCULTO PARA GENERAR EL QR EN ALTA RESOLUCIÓN -->
   <div id="qrHiddenBox" class="hidden"></div>
 
   <!-- FOOTER -->
@@ -309,12 +319,10 @@
       query,
       where,
       getDocs,
-      orderBy,
       runTransaction,
       serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // CONFIGURACIÓN REAL DE TU PROYECTO FIREBASE
     const firebaseConfig = {
       apiKey: "AIzaSyBFtiH0f1upIfyySzEDOX83N-Jo6YDkTus",
       authDomain: "avila-dorada-rcv-5619d.firebaseapp.com",
@@ -327,15 +335,14 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // CONSTANTES DEL NEGOCIO
     const ASESOR_FIJO = "ANDERSON ALFREDO CALVO PAREDES";
     const WHATSAPP_RECEPTOR = "584124310782";
-    const ADMIN_PIN = "avila2026";
+    const ADMIN_PIN = "23456";
     const CORRELATIVO_INICIAL = 500;
 
     let polizaActual = null;
 
-    // ==================== NAVEGACIÓN DE PESTAÑAS ====================
+    // ==================== NAVEGACIÓN ====================
     window.switchTab = function(tab) {
       ['emitir', 'verificar', 'admin'].forEach(t => {
         document.getElementById(`view-${t}`).classList.add('hidden');
@@ -355,7 +362,6 @@
       }
     };
 
-    // SELECCIÓN VISUAL DE PLANES
     document.querySelectorAll('input[name="plan"]').forEach(radio => {
       radio.addEventListener('change', () => {
         document.querySelectorAll('.plan-option').forEach(card => {
@@ -368,14 +374,12 @@
       });
     });
 
-    // COPIAR PAGO MÓVIL
     window.copiarPagoMovil = function() {
       const texto = `Pago Móvil Seguros Ávila Dorada:\nBanco: Bancamiga (0172)\nCédula: 30090311\nTeléfono: 04161854219\nMonto: $${polizaActual ? polizaActual.monto : ''} USD (Tasa BCV)`;
       navigator.clipboard.writeText(texto);
       alert("Datos de Pago Móvil copiados al portapapeles.");
     };
 
-    // CALCULAR FECHAS DE VIGENCIA (1 AÑO)
     function obtenerFechasVigencia() {
       const hoy = new Date();
       const vencimiento = new Date(hoy);
@@ -388,7 +392,25 @@
       };
     }
 
-    // ==================== GENERAR PÓLIZA EN FIREBASE ====================
+    // ==================== CARGAR IMÁGENES LOCALES DEL REPO ====================
+    function cargarImagenLocal(ruta) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = "Anonymous";
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+          resolve(canvas.toDataURL("image/png"));
+        };
+        img.onerror = () => resolve(null);
+        img.src = ruta;
+      });
+    }
+
+    // ==================== GUARDAR PÓLIZA EN FIREBASE ====================
     document.getElementById('policyForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('btnSubmit');
@@ -400,9 +422,13 @@
         const tipoPlan = planRaw[0];
         const monto = Number(planRaw[1]);
         const descripcionPlan = planRaw[2];
+        const coberturaCosas = planRaw[3];
+        const coberturaPersonas = planRaw[4];
+        const pagoCosas = planRaw[5];
+        const pagoPersonas = planRaw[6];
+        const gastosEmision = planRaw[7];
         const fechas = obtenerFechasVigencia();
 
-        // Transacción atómica para correlativo único global en la nube
         const counterRef = doc(db, "config", "correlativo");
         const nuevoNumero = await runTransaction(db, async (transaction) => {
           const counterSnap = await transaction.get(counterRef);
@@ -424,6 +450,11 @@
           tipoPlan,
           descripcionPlan,
           monto,
+          coberturaCosas,
+          coberturaPersonas,
+          pagoCosas,
+          pagoPersonas,
+          gastosEmision,
           nombre: document.getElementById('nombre').value.trim().toUpperCase(),
           cedula: document.getElementById('cedula').value.trim().toUpperCase(),
           telefono: document.getElementById('telefono').value.trim(),
@@ -435,7 +466,6 @@
           color: document.getElementById('color').value.trim().toUpperCase(),
           uso: document.getElementById('uso').value.trim().toUpperCase(),
           serialCarroceria: document.getElementById('serialCarroceria').value.trim().toUpperCase(),
-          serialMotor: document.getElementById('serialMotor').value.trim().toUpperCase(),
           asesor: ASESOR_FIJO,
           fechaEmision: fechas.emision,
           fechaVencimiento: fechas.vencimiento,
@@ -446,7 +476,6 @@
         await setDoc(doc(db, "polizas", contratoId), datosPoliza);
         polizaActual = datosPoliza;
 
-        // Mostrar resultado
         document.getElementById('resContrato').textContent = contratoId;
         document.getElementById('resMonto').textContent = `$${monto} USD`;
 
@@ -469,11 +498,11 @@
         alert("Error al conectar con la nube. Verifica tu conexión a internet e intenta de nuevo.");
       } finally {
         btn.disabled = false;
-        btn.innerHTML = `<span>Generar Póliza en la Nube y Ver Datos de Pago</span>`;
+        btn.innerHTML = `<span>Generar Póliza en la Nube y Descargar PDF</span>`;
       }
     });
 
-    // ==================== GENERADOR DE PDF DE 2 HOJAS + QR ====================
+    // ==================== GENERADOR DE PDF (2 HOJAS + LOGOS + SELLO + FIRMA + QR) ====================
     function generarQRBase64(urlTexto) {
       return new Promise((resolve) => {
         const box = document.getElementById('qrHiddenBox');
@@ -498,219 +527,315 @@
       });
     }
 
-    window.descargarPDFActual = async function() {
+    window.descargarPDFActual = async function(modo = 'descargar') {
       if (!polizaActual) return;
-      await generarPDFPoliza(polizaActual);
+      await generarPDFPoliza(polizaActual, modo);
     };
 
-    window.generarPDFPoliza = async function(p) {
+    window.generarPDFPoliza = async function(p, modo = 'descargar') {
       const { jsPDF } = window.jspdf;
       const docPdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'letter' });
 
       const baseUrl = window.location.origin + window.location.pathname;
       const urlVerificacion = `${baseUrl}?contrato=${encodeURIComponent(p.contrato)}`;
-      const qrDataUrl = await generarQRBase64(urlVerificacion);
 
-      // ----- HOJA 1: CUADRO PÓLIZA RCV -----
-      // Marco exterior
+      const cobCosas = p.coberturaCosas || "680,00 TCR";
+      const cobPersonas = p.coberturaPersonas || "850,00 TCR";
+      const valCosas = p.pagoCosas || "5,50";
+      const valPersonas = p.pagoPersonas || "5,50";
+      const valGastos = p.gastosEmision || "4,00";
+      const subtotalNum = (Number(p.monto) - Number(valGastos.replace(',', '.'))).toFixed(2).replace('.', ',');
+
+      const [qrDataUrl, logoIzq, logoDer, selloImg, firmaImg] = await Promise.all([
+        generarQRBase64(urlVerificacion),
+        cargarImagenLocal("logo-izq.png"),
+        cargarImagenLocal("logo-der.png"),
+        cargarImagenLocal("sello.png"),
+        cargarImagenLocal("firma.png")
+      ]);
+
+      // ==================== HOJA 1: CUADRO PÓLIZA + CARNETS ====================
       docPdf.setDrawColor(180, 130, 20);
-      docPdf.setLineWidth(0.8);
-      docPdf.rect(10, 10, 196, 259);
-
-      // Encabezado
-      docPdf.setFillColor(15, 23, 42);
-      docPdf.rect(10, 10, 196, 28, 'F');
-      docPdf.setTextColor(245, 158, 11);
-      docPdf.setFont("helvetica", "bold");
-      docPdf.setFontSize(17);
-      docPdf.text("SEGUROS ÁVILA DORADA", 18, 22);
-      docPdf.setTextColor(255, 255, 255);
-      docPdf.setFontSize(9);
-      docPdf.setFont("helvetica", "normal");
-      docPdf.text("PÓLIZA DE RESPONSABILIDAD CIVIL VEHICULAR (RCV)", 18, 28);
-      docPdf.text("REPÚBLICA BOLIVARIANA DE VENEZUELA", 18, 33);
-
-      // Número de contrato
-      docPdf.setTextColor(245, 158, 11);
-      docPdf.setFont("helvetica", "bold");
-      docPdf.setFontSize(10);
-      docPdf.text(p.contrato, 198, 22, { align: "right" });
-      docPdf.setTextColor(255, 255, 255);
-      docPdf.setFontSize(8.5);
-      docPdf.text(`ESTATUS: ${p.estatus}`, 198, 28, { align: "right" });
-      docPdf.text(`PLAN: ${p.tipoPlan} ($${p.monto} USD)`, 198, 33, { align: "right" });
-
-      // Marca de agua suave
-      docPdf.saveGraphicsState();
-      docPdf.setTextColor(235, 238, 242);
-      docPdf.setFontSize(34);
-      docPdf.setFont("helvetica", "bold");
-      docPdf.text("SEGUROS ÁVILA DORADA", 108, 155, { align: "center", angle: 35 });
-      docPdf.restoreGraphicsState();
-
-      // Vigencia
-      let y = 46;
-      docPdf.setFillColor(241, 245, 249);
-      docPdf.rect(14, y, 188, 14, 'F');
-      docPdf.setTextColor(15, 23, 42);
-      docPdf.setFontSize(9);
-      docPdf.setFont("helvetica", "bold");
-      docPdf.text(`FECHA DE EMISIÓN: ${p.fechaEmision}`, 18, y + 6);
-      docPdf.text(`FECHA DE VENCIMIENTO: ${p.fechaVencimiento}`, 85, y + 6);
-      docPdf.text(`VIGENCIA: 1 AÑO`, 165, y + 6);
-      docPdf.setFont("helvetica", "normal");
-      docPdf.setFontSize(8);
-      docPdf.text(`ASESOR AUTORIZADO: ${p.asesor}`, 18, y + 11.5);
-
-      // Sección Tomador
-      y += 20;
-      docPdf.setFillColor(15, 23, 42);
-      docPdf.rect(14, y, 188, 7, 'F');
-      docPdf.setTextColor(255, 255, 255);
-      docPdf.setFont("helvetica", "bold");
-      docPdf.setFontSize(9);
-      docPdf.text("1. IDENTIFICACIÓN DEL TOMADOR / PROPIETARIO", 17, y + 5);
-
-      y += 12;
-      docPdf.setTextColor(30, 41, 59);
-      docPdf.setFontSize(9);
-      docPdf.text(`NOMBRE / RAZÓN SOCIAL: ${p.nombre}`, 17, y);
-      y += 6;
-      docPdf.text(`CÉDULA / RIF: ${p.cedula}`, 17, y);
-      docPdf.text(`TELÉFONO: ${p.telefono}`, 110, y);
-      y += 6;
-      docPdf.text(`DIRECCIÓN: ${p.direccion}`, 17, y);
-
-      // Sección Vehículo
-      y += 10;
-      docPdf.setFillColor(15, 23, 42);
-      docPdf.rect(14, y, 188, 7, 'F');
-      docPdf.setTextColor(255, 255, 255);
-      docPdf.setFont("helvetica", "bold");
-      docPdf.text("2. CARACTERÍSTICAS DEL VEHÍCULO ASEGURADO", 17, y + 5);
-
-      y += 12;
-      docPdf.setTextColor(30, 41, 59);
-      docPdf.text(`PLACA: ${p.placa}`, 17, y);
-      docPdf.text(`MARCA: ${p.marca}`, 75, y);
-      docPdf.text(`MODELO: ${p.modelo}`, 140, y);
-      y += 6;
-      docPdf.text(`AÑO: ${p.anio}`, 17, y);
-      docPdf.text(`COLOR: ${p.color}`, 75, y);
-      docPdf.text(`USO: ${p.uso}`, 140, y);
-      y += 6;
-      docPdf.text(`SERIAL CARROCERÍA: ${p.serialCarroceria}`, 17, y);
-      y += 6;
-      docPdf.text(`SERIAL MOTOR: ${p.serialMotor}`, 17, y);
-
-      // Tabla de Coberturas
-      y += 10;
-      docPdf.setFillColor(15, 23, 42);
-      docPdf.rect(14, y, 188, 7, 'F');
-      docPdf.setTextColor(255, 255, 255);
-      docPdf.text("3. COBERTURAS DE RESPONSABILIDAD CIVIL (LEY DE TRANSPORTE TERRESTRE)", 17, y + 5);
-
-      y += 11;
-      docPdf.setTextColor(30, 41, 59);
-      docPdf.setFont("helvetica", "normal");
-      docPdf.setFontSize(8.5);
-      const coberturas = [
-        ["Daños a Cosas de Terceros", "Incluido (100% Cobertura RCV)"],
-        ["Daños a Personas (Lesiones o Muerte)", "Incluido (100% Cobertura RCV)"],
-        ["Asistencia Legal y Defensa Penal", "Incluido en Territorio Nacional"],
-        ["Ámbito Territorial", "República Bolivariana de Venezuela"]
-      ];
-      coberturas.forEach(row => {
-        docPdf.text(`• ${row[0]}`, 18, y);
-        docPdf.setFont("helvetica", "bold");
-        docPdf.text(row[1], 198, y, { align: "right" });
-        docPdf.setFont("helvetica", "normal");
-        y += 5.5;
-      });
-
-      // QR y Sello Digital
-      y += 8;
-      if (qrDataUrl) {
-        docPdf.addImage(qrDataUrl, 'PNG', 18, y, 36, 36);
-      }
-      docPdf.setFont("helvetica", "bold");
-      docPdf.setFontSize(8.5);
-      docPdf.setTextColor(15, 23, 42);
-      docPdf.text("VERIFICACIÓN DIGITAL EN LA NUBE", 60, y + 7);
-      docPdf.setFont("helvetica", "normal");
-      docPdf.setFontSize(7.5);
-      docPdf.setTextColor(71, 85, 105);
-      docPdf.text("Escanee el código QR con cualquier teléfono inteligente para comprobar", 60, y + 12);
-      docPdf.text("en tiempo real la autenticidad y vigencia de este contrato ante", 60, y + 16);
-      docPdf.text("autoridades de tránsito y terceros.", 60, y + 20);
-      docPdf.setFont("helvetica", "bold");
-      docPdf.setTextColor(180, 83, 9);
-      docPdf.text(`ID Nube: ${p.contrato}`, 60, y + 27);
-
-      // Sello y Firma
-      docPdf.setDrawColor(29, 78, 216);
       docPdf.setLineWidth(0.6);
-      docPdf.roundedRect(142, y + 2, 56, 26, 3, 3);
-      docPdf.setTextColor(29, 78, 216);
-      docPdf.setFont("helvetica", "bold");
-      docPdf.setFontSize(8);
-      docPdf.text("SEGUROS ÁVILA DORADA", 170, y + 9, { align: "center" });
-      docPdf.setFontSize(7);
-      docPdf.text("EMISIÓN DIGITAL VERIFICADA", 170, y + 14, { align: "center" });
-      docPdf.setFont("helvetica", "italic");
-      docPdf.text("Firma Autorizada", 170, y + 22, { align: "center" });
+      docPdf.rect(8, 8, 200, 263);
 
-      // ----- HOJA 2: CARNET DE CIRCULACIÓN RCV RECORTABLE -----
-      docPdf.addPage();
+      // Encabezado superior con tus logos
+      if (logoIzq) {
+        docPdf.addImage(logoIzq, "PNG", 12, 11, 40, 17);
+      } else {
+        docPdf.setTextColor(180, 110, 10);
+        docPdf.setFont("helvetica", "bold");
+        docPdf.setFontSize(13);
+        docPdf.text("SEGURO ÁVILA DORADA", 12, 20);
+      }
+
+      docPdf.setTextColor(15, 23, 42);
       docPdf.setFont("helvetica", "bold");
       docPdf.setFontSize(11);
-      docPdf.setTextColor(15, 23, 42);
-      docPdf.text("CERTIFICADO PORTÁTIL DE RESPONSABILIDAD CIVIL (RECORTAR Y PLASTIFICAR)", 108, 20, { align: "center" });
+      docPdf.text("SERVICIO Y ASISTENCIA VIAL", 108, 16, { align: "center" });
+      docPdf.setFontSize(22);
+      docPdf.text("Contrato", 108, 25, { align: "center" });
 
-      // Tarjeta Frontal
-      docPdf.setDrawColor(15, 23, 42);
-      docPdf.setLineWidth(0.6);
-      docPdf.rect(18, 30, 88, 56);
-      docPdf.setFillColor(15, 23, 42);
-      docPdf.rect(18, 30, 88, 11, 'F');
-      docPdf.setTextColor(245, 158, 11);
+      if (logoDer) {
+        docPdf.addImage(logoDer, "PNG", 164, 11, 40, 17);
+      }
+
+      // Vigencia y Número de Contrato
+      let y = 32;
+      docPdf.setFillColor(241, 245, 249);
+      docPdf.rect(11, y, 194, 12, 'F');
       docPdf.setFontSize(8.5);
-      docPdf.text("SEGUROS ÁVILA DORADA - RCV", 62, 37, { align: "center" });
-
       docPdf.setTextColor(15, 23, 42);
-      docPdf.setFontSize(7);
-      docPdf.text(`CONTRATO: ${p.contrato}`, 21, 46);
-      docPdf.text(`TOMADOR: ${p.nombre.substring(0, 32)}`, 21, 51);
-      docPdf.text(`C.I./RIF: ${p.cedula}`, 21, 56);
-      docPdf.text(`PLACA: ${p.placa}  |  AÑO: ${p.anio}`, 21, 61);
-      docPdf.text(`VEHÍCULO: ${p.marca} ${p.modelo}`, 21, 66);
-      docPdf.text(`COLOR: ${p.color}`, 21, 71);
-      docPdf.text(`SERIAL: ${p.serialCarroceria}`, 21, 76);
-      docPdf.setTextColor(180, 83, 9);
-      docPdf.text(`VENCE: ${p.fechaVencimiento}`, 21, 82);
+      docPdf.text(`VIGENCIA DESDE: ${p.fechaEmision}   HASTA: ${p.fechaVencimiento}`, 14, y + 5);
+      docPdf.text(`TIPO DE CONTRATO: CONTADO`, 14, y + 10);
 
-      // Tarjeta Reverso con QR
-      docPdf.rect(110, 30, 88, 56);
-      docPdf.setFillColor(15, 23, 42);
-      docPdf.rect(110, 30, 88, 11, 'F');
-      docPdf.setTextColor(255, 255, 255);
+      docPdf.setTextColor(180, 83, 9);
+      docPdf.setFontSize(9.5);
+      docPdf.text(p.contrato, 202, y + 5, { align: "right" });
+      docPdf.setTextColor(15, 23, 42);
       docPdf.setFontSize(8);
-      docPdf.text("VALIDACIÓN QR EN TIEMPO REAL", 154, 37, { align: "center" });
+      docPdf.text(`ESTATUS: ${p.estatus}`, 202, y + 10, { align: "right" });
+
+      // Datos del Contratante
+      y += 16;
+      docPdf.setFont("helvetica", "bold");
+      docPdf.setFontSize(8.5);
+      docPdf.text(`CONTRATANTE / PROPIETARIO: ${p.nombre}`, 14, y);
+      docPdf.text(`C.I./RIF: ${p.cedula}`, 152, y);
+      y += 5;
+      docPdf.text(`DIRECCIÓN: ${p.direccion}`, 14, y);
+      docPdf.text(`TELÉFONO: ${p.telefono}`, 152, y);
+      y += 5;
+      docPdf.setFillColor(226, 232, 240);
+      docPdf.rect(11, y - 3.5, 194, 6, 'F');
+      docPdf.text(`OFICINA VIRTUAL`, 14, y + 0.5);
+      docPdf.text(`ASESOR: ${p.asesor}`, 85, y + 0.5);
+
+      // Características del Vehículo (SIN SERIAL DE MOTOR)
+      y += 7.5;
+      docPdf.setFillColor(153, 27, 27);
+      docPdf.rect(11, y, 194, 6, 'F');
+      docPdf.setTextColor(255, 255, 255);
+      docPdf.setFontSize(9);
+      docPdf.text("CARACTERÍSTICAS DEL VEHÍCULO", 108, y + 4.2, { align: "center" });
+
+      y += 10.5;
+      docPdf.setTextColor(15, 23, 42);
+      docPdf.setFontSize(8.5);
+      docPdf.text(`MARCA: ${p.marca}`, 14, y);
+      docPdf.text(`MODELO: ${p.modelo}`, 75, y);
+      docPdf.text(`PLACA: ${p.placa}`, 152, y);
+      y += 5;
+      docPdf.text(`COLOR: ${p.color}`, 14, y);
+      docPdf.text(`AÑO: ${p.anio}`, 75, y);
+      docPdf.text(`USO: ${p.uso}`, 152, y);
+      y += 5;
+      docPdf.text(`SERIAL DE CARROCERÍA: ${p.serialCarroceria}`, 14, y);
+
+      // Coberturas TCR y Desglose de Pago
+      y += 6.5;
+      docPdf.setFillColor(153, 27, 27);
+      docPdf.rect(11, y, 194, 6, 'F');
+      docPdf.setTextColor(255, 255, 255);
+      docPdf.text("COBERTURAS", 14, y + 4.2);
+      docPdf.text("MONTO COBERTURAS ($)", 110, y + 4.2, { align: "center" });
+      docPdf.text("PAGO", 200, y + 4.2, { align: "right" });
+
+      y += 9.5;
+      docPdf.setTextColor(15, 23, 42);
+      docPdf.setFont("helvetica", "bold");
+      docPdf.setFontSize(8.5);
+      docPdf.text("POR DAÑOS A COSAS DE TERCEROS", 14, y);
+      docPdf.text(cobCosas, 110, y, { align: "center" });
+      docPdf.text(`${valCosas} $`, 200, y, { align: "right" });
+
+      y += 5;
+      docPdf.text("POR DAÑOS A PERSONAS (LESIONES O MUERTE)", 14, y);
+      docPdf.text(cobPersonas, 110, y, { align: "center" });
+      docPdf.text(`${valPersonas} $`, 200, y, { align: "right" });
+
+      y += 4;
+      docPdf.setDrawColor(203, 213, 225);
+      docPdf.line(14, y, 202, y);
+
+      y += 4.5;
+      docPdf.text("GASTOS DE EMISIÓN", 14, y);
+      docPdf.text(`${valGastos} $`, 200, y, { align: "right" });
+      y += 4.5;
+      docPdf.text("SUBTOTAL", 14, y);
+      docPdf.text(`${subtotalNum} $`, 200, y, { align: "right" });
+      y += 4.5;
+      docPdf.text("DESCUENTO", 14, y);
+      docPdf.text("$0,00 $", 200, y, { align: "right" });
+      y += 4.5;
+      docPdf.setTextColor(153, 27, 27);
+      docPdf.text("TOTAL PAGO", 14, y);
+      docPdf.text(`${p.monto},00 $`, 200, y, { align: "right" });
+
+      // Zona de Firmas, Sello y QR
+      y += 5;
+      docPdf.setDrawColor(15, 23, 42);
+      docPdf.line(14, y + 17, 62, y + 17);
+      docPdf.setTextColor(15, 23, 42);
+      docPdf.setFontSize(7.5);
+      docPdf.text("FIRMA DEL CONTRATANTE", 38, y + 21, { align: "center" });
+
+      if (selloImg) {
+        docPdf.addImage(selloImg, "PNG", 68, y + 1, 50, 21);
+      } else {
+        docPdf.setDrawColor(29, 78, 216);
+        docPdf.roundedRect(68, y + 2, 50, 19, 2, 2);
+        docPdf.setTextColor(29, 78, 216);
+        docPdf.text("SEGURO ÁVILA DORADA", 93, y + 10, { align: "center" });
+        docPdf.text("OFICINA PRINCIPAL", 93, y + 15, { align: "center" });
+      }
+
+      if (firmaImg) {
+        docPdf.addImage(firmaImg, "PNG", 125, y, 40, 17);
+      }
+      docPdf.setDrawColor(15, 23, 42);
+      docPdf.line(124, y + 17, 166, y + 17);
+      docPdf.setTextColor(15, 23, 42);
+      docPdf.text("FIRMA AUTORIZADA", 145, y + 21, { align: "center" });
 
       if (qrDataUrl) {
-        docPdf.addImage(qrDataUrl, 'PNG', 115, 44, 34, 34);
+        docPdf.addImage(qrDataUrl, "PNG", 172, y - 1, 27, 27);
       }
-      docPdf.setTextColor(30, 41, 59);
-      docPdf.setFontSize(6.8);
-      docPdf.text("Porte este certificado junto con", 152, 50);
-      docPdf.text("la documentación del vehículo.", 152, 54);
-      docPdf.text("Asesor:", 152, 62);
-      docPdf.setFont("helvetica", "bold");
-      docPdf.text("ANDERSON CALVO", 152, 66);
-      docPdf.setFont("helvetica", "normal");
-      docPdf.text("WhatsApp: 0412-4310782", 152, 73);
 
-      docPdf.save(`${p.contrato}_${p.placa}.pdf`);
+      // Pie institucional
+      y += 26;
+      docPdf.setFont("helvetica", "normal");
+      docPdf.setFontSize(7);
+      docPdf.setTextColor(71, 85, 105);
+      docPdf.text("Para la validez del presente contrato deberá estar firmado y sellado por la persona autorizada • WhatsApp: 0412-4310782 / 0412-9321051", 108, y, { align: "center" });
+
+      // Línea de corte para Carnets Portátiles
+      y += 4;
+      docPdf.setDrawColor(148, 163, 184);
+      docPdf.setLineDashPattern([2, 2], 0);
+      docPdf.line(10, y, 206, y);
+      docPdf.setLineDashPattern([], 0);
+
+      // CARNET IZQUIERDO (Vehículo)
+      y += 3.5;
+      docPdf.setDrawColor(15, 23, 42);
+      docPdf.setLineWidth(0.5);
+      docPdf.rect(12, y, 94, 52);
+      docPdf.setFillColor(153, 27, 27);
+      docPdf.rect(12, y, 94, 7, 'F');
+      docPdf.setTextColor(255, 255, 255);
+      docPdf.setFont("helvetica", "bold");
+      docPdf.setFontSize(7.5);
+      docPdf.text(`CARACTERÍSTICAS DEL VEHÍCULO  |  VENCE: ${p.fechaVencimiento}`, 59, y + 4.8, { align: "center" });
+
+      docPdf.setTextColor(15, 23, 42);
+      docPdf.setFontSize(7.5);
+      docPdf.text(`MARCA: ${p.marca}`, 15, y + 13);
+      docPdf.text(`PLACA: ${p.placa}`, 62, y + 13);
+      docPdf.text(`MODELO: ${p.modelo}`, 15, y + 19);
+      docPdf.text(`AÑO: ${p.anio}`, 62, y + 19);
+      docPdf.text(`COLOR: ${p.color}`, 15, y + 25);
+      docPdf.text(`USO: ${p.uso}`, 62, y + 25);
+      docPdf.text(`SERIAL CARROCERÍA: ${p.serialCarroceria}`, 15, y + 31);
+      docPdf.text(`EMISIÓN: ${p.fechaEmision}`, 15, y + 37);
+
+      if (firmaImg) docPdf.addImage(firmaImg, "PNG", 58, y + 31, 26, 12);
+      if (logoIzq) docPdf.addImage(logoIzq, "PNG", 82, y + 35, 21, 13);
+      docPdf.setFontSize(6.5);
+      docPdf.text("FIRMA AUTORIZADA", 70, y + 47, { align: "center" });
+
+      // CARNET DERECHO (Contratante + Sello + QR)
+      docPdf.rect(110, y, 94, 52);
+      if (logoIzq) docPdf.addImage(logoIzq, "PNG", 112, y + 2, 24, 12);
+      if (selloImg) docPdf.addImage(selloImg, "PNG", 138, y + 2, 34, 15);
+      if (qrDataUrl) docPdf.addImage(qrDataUrl, "PNG", 176, y + 2, 25, 25);
+
+      docPdf.setTextColor(15, 23, 42);
+      docPdf.setFontSize(6.8);
+      docPdf.text(`CONTRATANTE: ${p.nombre.substring(0, 34)}`, 113, y + 23);
+      docPdf.text(`C.I./RIF: ${p.cedula}`, 113, y + 28);
+      docPdf.text(`DIRECCIÓN: ${p.direccion.substring(0, 36)}`, 113, y + 33);
+      docPdf.setFontSize(8);
+      docPdf.setTextColor(180, 83, 9);
+      docPdf.text(p.contrato, 157, y + 45, { align: "center" });
+
+      // ==================== HOJA 2: CONDICIONADO + COMPROBANTE DE PAGO ====================
+      docPdf.addPage();
+      docPdf.setTextColor(15, 23, 42);
+      docPdf.setFont("helvetica", "bold");
+      docPdf.setFontSize(10);
+      docPdf.text("CONDICIONADO GENERAL DEL CONTRATO DE GARANTÍA (RCV)", 108, 14, { align: "center" });
+
+      docPdf.setFont("helvetica", "normal");
+      docPdf.setFontSize(6.7);
+      docPdf.setTextColor(30, 41, 59);
+      const clausulas = [
+        "PRIMERA: OBJETO DEL CONTRATO DE GARANTÍA. La Compañía se compromete a cubrir, en forma parcial o total, en los términos establecidos en el contrato de Garantía, los daños a personas o cosas causados a terceros por los cuales deba responder el contratante o el conductor con motivo de la circulación del vehículo objeto de este contrato dentro del Territorio de la República Bolivariana de Venezuela.",
+        "SEGUNDA: DEFINICIONES. COMPAÑÍA: Persona Jurídica que asume los compromisos amparados en el contrato. CONTRATANTE: Persona natural o jurídica propietaria, conductor o autorizado del vehículo garantizado. CUADRO DE GARANTÍA: Documento donde se indican los datos particulares, número de garantía, vigencia, vehículo y pago.",
+        "TERCERA: EXCLUSIÓN DE RESPONSABILIDAD. Este contrato no cubre la responsabilidad del Contratante o conductor por daños sufridos por los ocupantes y cosas transportadas, ni daños sufridos por el propio vehículo garantizado o bienes propiedad del contratante, conductor o familiares hasta el tercer grado.",
+        "CUARTA: EXONERACIONES DE RESPONSABILIDAD. La Compañía no estará obligada al pago de la Garantía en caso de que el Contratante haya sido privado de la posesión del vehículo como consecuencia de robo, hurto o apropiación indebida.",
+        "QUINTA: VIGENCIA DEL CONTRATO DE GARANTÍA. Tendrá una duración de un (1) año contado a partir de la fecha de iniciación indicada en el Cuadro de Garantía y podrá ser anulado mediante notificación escrita de cualquiera de las partes.",
+        "SEXTA: NOTIFICACIÓN DE ACCIDENTE. Al ocurrir cualquier accidente en el que resulten daños a terceros, el Contratante deberá dar aviso por escrito en un lapso máximo de cinco (5) días continuos siguientes a la fecha de ocurrencia del siniestro, consignando las actuaciones de tránsito.",
+        "SÉPTIMA: DERECHO A SOLICITAR REEMBOLSO. La Compañía tendrá derecho a solicitar reembolso cuando: 1) No se haya realizado el pago convenido; 2) Se obstaculice la defensa; 3) El vehículo se destine a un uso diferente al declarado; 4) El conductor actúe bajo influencia de alcohol o sustancias estupefacientes, o sin licencia vigente.",
+        "OCTAVA: PAGO DE LOS DAÑOS OCASIONADOS. Procederá si la emisora del contrato conviene con el Tercero el pago de los daños o si existiere sentencia firme en contra del Contratante o conductor.",
+        "NOVENA: NOTIFICACIÓN DE CAMBIOS. El Contratante deberá notificar el cambio de propiedad o uso del vehículo dentro de los quince (15) días hábiles siguientes a la fecha cierta del traspaso.",
+        "DÉCIMA: AVISOS. Toda comunicación que una parte deba dar a la otra respecto al Contrato deberá hacerse mediante comunicación escrita con acuse de recibo.",
+        "DÉCIMA PRIMERA: PRESCRIPCIÓN DE ACCIONES. Las acciones civiles para exigir la reparación de todo daño prescribirán a los doce (12) meses de sucedido el accidente."
+      ];
+
+      let cy = 21;
+      clausulas.forEach(texto => {
+        const lineas = docPdf.splitTextToSize(texto, 192);
+        docPdf.text(lineas, 12, cy);
+        cy += (lineas.length * 3.1) + 2;
+      });
+
+      // Sección Inferior Hoja 2: Comprobante de Pago
+      cy += 6;
+      docPdf.setDrawColor(148, 163, 184);
+      docPdf.setLineDashPattern([2, 2], 0);
+      docPdf.line(10, cy, 206, cy);
+      docPdf.setLineDashPattern([], 0);
+
+      cy += 6;
+      if (logoIzq) docPdf.addImage(logoIzq, "PNG", 12, cy, 38, 16);
+      if (logoDer) docPdf.addImage(logoDer, "PNG", 166, cy, 38, 16);
+
+      docPdf.setTextColor(153, 27, 27);
+      docPdf.setFont("helvetica", "bold");
+      docPdf.setFontSize(14);
+      docPdf.text("COMPROBANTE DE PAGO", 108, cy + 12, { align: "center" });
+
+      cy += 23;
+      docPdf.setTextColor(15, 23, 42);
+      docPdf.setFontSize(9);
+      docPdf.text(`CONTRATANTE NOMBRE Y APELLIDO: ${p.nombre}`, 14, cy);
+      docPdf.text(`C.I./RIF: ${p.cedula}`, 152, cy);
+      cy += 6;
+      docPdf.text(`DESCRIPCIÓN: ADQUISICIÓN DE RCV (${p.contrato}) - MONTO: $${p.monto},00 USD`, 14, cy);
+
+      cy += 8;
+      if (selloImg) {
+        docPdf.addImage(selloImg, "PNG", 36, cy, 52, 22);
+      }
+      if (firmaImg) {
+        docPdf.addImage(firmaImg, "PNG", 112, cy - 1, 40, 18);
+      }
+      docPdf.line(110, cy + 18, 154, cy + 18);
+      docPdf.setFontSize(7.5);
+      docPdf.text("FIRMA AUTORIZADA", 132, cy + 22, { align: "center" });
+
+      if (qrDataUrl) {
+        docPdf.addImage(qrDataUrl, "PNG", 172, cy - 2, 26, 26);
+      }
+
+      const nombreArchivo = `${p.contrato}_${p.placa}.pdf`;
+      if (modo === 'abrir') {
+        const blobUrl = docPdf.output('bloburl');
+        window.open(blobUrl, '_blank');
+      } else {
+        docPdf.save(nombreArchivo);
+      }
     };
 
     // ==================== VERIFICACIÓN PÚBLICA EN FIRESTORE ====================
@@ -722,17 +847,14 @@
       let encontrada = null;
 
       try {
-        // 1. Buscar por ID exacto de contrato
         const docSnap = await getDoc(doc(db, "polizas", limpio));
         if (docSnap.exists()) {
           encontrada = docSnap.data();
         } else {
-          // 2. Buscar por placa
           const placaSinEspacios = limpio.replace(/\s+/g, '');
           const q = query(collection(db, "polizas"), where("placa", "==", placaSinEspacios));
           const querySnap = await getDocs(q);
           if (!querySnap.empty) {
-            // Tomar la más reciente por número
             let lista = [];
             querySnap.forEach(d => lista.push(d.data()));
             lista.sort((a, b) => (b.numero || 0) - (a.numero || 0));
@@ -748,7 +870,6 @@
           return;
         }
 
-        // Verificar estatus real
         const vencida = encontrada.timestampVencimiento && Date.now() > encontrada.timestampVencimiento;
         let estadoMostrar = encontrada.estatus;
         if (vencida && estadoMostrar === "VIGENTE / ACTIVA") {
@@ -784,14 +905,18 @@
             </div>
 
             <div class="pt-2 flex flex-wrap gap-2">
-              <button id="btnDescargarVerificada" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition">
-                Descargar Copia PDF
+              <button id="btnDescargarVerificada" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-3 rounded-xl transition">
+                ⬇️ Descargar Copia PDF
+              </button>
+              <button id="btnAbrirVerificada" class="bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold px-4 py-3 rounded-xl transition">
+                📄 Abrir PDF en el Teléfono
               </button>
             </div>
           </div>
         `;
 
-        document.getElementById('btnDescargarVerificada').onclick = () => generarPDFPoliza(encontrada);
+        document.getElementById('btnDescargarVerificada').onclick = () => generarPDFPoliza(encontrada, 'descargar');
+        document.getElementById('btnAbrirVerificada').onclick = () => generarPDFPoliza(encontrada, 'abrir');
 
       } catch (err) {
         console.error(err);
@@ -804,7 +929,6 @@
       consultarPolizaEnNube(document.getElementById('searchInput').value);
     });
 
-    // DETECCIÓN AUTOMÁTICA DE PARÁMETRO ?contrato=... AL ESCANEAR EL QR
     const paramsUrl = new URLSearchParams(window.location.search);
     const contratoParam = paramsUrl.get('contrato');
     if (contratoParam) {
@@ -873,7 +997,7 @@
                     Anular
                   </button>`
                 }
-                <button onclick='generarPDFPoliza(${JSON.stringify(p).replace(/'/g, "&apos;")})' class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-3 py-2 rounded-lg transition">
+                <button onclick='generarPDFPoliza(${JSON.stringify(p).replace(/'/g, "&apos;")}, "descargar")' class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-3 py-2 rounded-lg transition">
                   PDF
                 </button>
               </div>
