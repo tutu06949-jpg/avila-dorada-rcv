@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seguros Ávila Dorada | Emisión y Verificación RCV</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .gold-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #78350f 100%); }
+    .gold-btn { background: linear-gradient(135deg, #d97706 0%, #b45309 100%); }
+    .gold-btn:hover { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- HEADER -->
+  <header class="gold-gradient text-white shadow-lg sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-400 font-extrabold text-xl">
+          AD
+        </div>
+        <div>
+          <h1 class="text-lg sm:text-xl font-extrabold tracking-tight text-amber-400">SEGUROS ÁVILA DORADA</h1>
+          <p class="text-xs text-slate-300">Responsabilidad Civil Vehicular (RCV) • República Bolivariana de Venezuela</p>
+        </div>
+      </div>
+
+      <nav class="flex gap-1.5 bg-slate-900/70 p-1 rounded-xl border border-slate-700">
+        <button onclick="switchTab('emitir')" id="tab-emitir" class="tab-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-amber-500 text-slate-950 transition">
+          Emitir RCV
+        </button>
+        <button onclick="switchTab('verificar')" id="tab-verificar" class="tab-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-300 hover:text-white transition">
+          Verificar QR / Placa
+        </button>
+        <button onclick="switchTab('admin')" id="tab-admin" class="tab-btn px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-300 hover:text-white transition">
+          Admin
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
+
+    <!-- ==================== TAB 1: EMITIR RCV ==================== -->
+    <section id="view-emitir" class="space-y-6">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-7">
+        <div class="border-b border-slate-100 pb-4 mb-6">
+          <span class="inline-block px-2.5 py-1 text-xs font-bold bg-amber-100 text-amber-800 rounded-full mb-2">EMISIÓN DIGITAL INMEDIATA</span>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Cotiza y Genera tu Póliza RCV</h2>
+          <p class="text-sm text-slate-500 mt-1">Completa los datos del propietario y del vehículo exactamente como aparecen en el Certificado de Registro (Título).</p>
+        </div>
+
+        <form id="policyForm" class="space-y-6">
+          <!-- PLANES -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">1. Selecciona el Tipo de Vehículo / Cobertura Anual</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="planCards">
+              <label class="cursor-pointer border-2 border-amber-500 bg-amber-50/40 rounded-xl p-3.5 transition plan-option">
+                <input type="radio" name="plan" value="MOTO|12|Motocicleta" class="hidden" checked>
+                <div class="flex justify-between items-start">
+                  <span class="font-bold text-slate-900 text-sm">Motocicleta</span>
+                  <span class="text-lg font-extrabold text-amber-600">$12</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1">Vigencia 1 Año • Cobertura Nacional</p>
+              </label>
+
+              <label class="cursor-pointer border-2 border-slate-200 hover:border-amber-400 rounded-xl p-3.5 transition plan-option">
+                <input type="radio" name="plan" value="PARTICULAR|15|Vehículo Particular / Paseo" class="hidden">
+                <div class="flex justify-between items-start">
+                  <span class="font-bold text-slate-900 text-sm">Particular / Paseo</span>
+                  <span class="text-lg font-extrabold text-amber-600">$15</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1">Sedán, Hatchback, Coupé • 1 Año</p>
+              </label>
+
+              <label class="cursor-pointer border-2 border-slate-200 hover:border-amber-400 rounded-xl p-3.5 transition plan-option">
+                <input type="radio" name="plan" value="CAMIONETA|20|Camioneta / Pick-Up / Rústico" class="hidden">
+                <div class="flex justify-between items-start">
+                  <span class="font-bold text-slate-900 text-sm">Camioneta / Pick-Up</span>
+                  <span class="text-lg font-extrabold text-amber-600">$20</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1">SUV, 4x4, Vans, Pick-Up • 1 Año</p>
+              </label>
+
+              <label class="cursor-pointer border-2 border-slate-200 hover:border-amber-400 rounded-xl p-3.5 transition plan-option">
+                <input type="radio" name="plan" value="CARGA|25|Carga / Transporte / Camión" class="hidden">
+                <div class="flex justify-between items-start">
+                  <span class="font-bold text-slate-900 text-sm">Carga / Transporte</span>
+                  <span class="text-lg font-extrabold text-amber-600">$25</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1">Camiones 350/750, Busetas • 1 Año</p>
+              </label>
+            </div>
+          </div>
+
+          <!-- DATOS DEL TOMADOR -->
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">2. Datos del Tomador / Propietario</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Nombre Completo o Razón Social *</label>
+                <input type="text" id="nombre" required placeholder="Ej: JUAN CARLOS PÉREZ RODRÍGUEZ" class="w-full uppercase rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Cédula / RIF *</label>
+                <input type="text" id="cedula" required placeholder="Ej: V-18456789" class="w-full uppercase rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Teléfono WhatsApp *</label>
+                <input type="tel" id="telefono" required placeholder="Ej: 0414-1234567" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Dirección de Domicilio *</label>
+                <input type="text" id="direccion" required placeholder="Ej: PUERTO ORDAZ, EDO. BOLÍVAR" class="w-full uppercase rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500" />
+              </div>
+            </div>
+          </div>
+
+          <!-- DATOS DEL VEHÍCULO -->
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">3. Datos del Vehículo</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Placa *</label>
+                <input type="text" id="placa" required placeholder="Ej: AB123CD" class="w-full uppercase font-bold rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Marca *</label>
+                <input type="text" id="marca" required placeholder="Ej: TOYOTA / CHERY / BERA" class="w-full uppercase rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Modelo *</label>
+                <input type="text" id="modelo" required placeholder="Ej: COROLLA / X1 / SBR" class="w-full uppercase rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Año *</label>
+                <input type="number" id="anio" required min="1950" max="2027" placeholder="Ej: 2015" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Color *</label>
+                <input type="text" id="color" required placeholder="Ej: PLATA / BLANCO / NEGRO" class="w-full uppercase rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Uso *</label>
+                <select id="uso" class="w-full uppercase rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:border-amber-500">
+                  <option value="PARTICULAR">PARTICULAR</option>
+                  <option value="CARGA">CARGA</option>
+                  <option value="TRANSPORTE PÚBLICO">TRANSPORTE PÚBLICO</option>
+                  <option value="COMERCIAL">COMERCIAL</option>
+                </select>
+              </div>
+              <div class="sm:col-span-2 lg:col-span-2">
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Serial de Carrocería (NIV / VIN) *</label>
+                <input type="text" id="serialCarroceria" required placeholder="Ej: 8XA12345678901234" class="w-full uppercase font-mono rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Serial de Motor *</label>
+                <input type="text" id="serialMotor" required placeholder="Ej: SQR473F123456" class="w-full uppercase font-mono rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500" />
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" id="btnSubmit" class="w-full gold-btn text-white font-extrabold py-3.5 px-6 rounded-xl shadow-md transition flex items-center justify-center gap-2 text-base">
+              <span>Generar Póliza en la Nube y Ver Datos de Pago</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- RESULTADO POST-EMISIÓN -->
+      <div id="resultBox" class="hidden bg-white rounded-2xl shadow-md border-2 border-amber-500 p-5 sm:p-7 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div>
+            <span class="inline-block px-2.5 py-1 text-xs font-bold bg-amber-100 text-amber-800 rounded-full">REGISTRADA EN LA NUBE • PENDIENTE DE PAGO</span>
+            <h3 class="text-xl font-extrabold text-slate-900 mt-1" id="resContrato">PÓLIZA-VIRT-CONTRATO-500</h3>
+          </div>
+          <div class="text-right">
+            <p class="text-xs text-slate-500">Monto a Cancelar</p>
+            <p class="text-2xl font-extrabold text-amber-600" id="resMonto">$15 USD</p>
+          </div>
+        </div>
+
+        <!-- DATOS DE PAGO MÓVIL -->
+        <div class="bg-slate-900 text-white rounded-xl p-4 sm:p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <h4 class="text-sm font-extrabold text-amber-400 uppercase tracking-wide">Datos para Pago Móvil (Activación Inmediata)</h4>
+            <button onclick="copiarPagoMovil()" class="text-xs bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg transition">
+              Copiar Datos
+            </button>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+            <div class="bg-slate-800/80 p-3 rounded-lg">
+              <p class="text-xs text-slate-400">Banco</p>
+              <p class="font-bold text-white">BANCAMIGA (0172)</p>
+            </div>
+            <div class="bg-slate-800/80 p-3 rounded-lg">
+              <p class="text-xs text-slate-400">Cédula</p>
+              <p class="font-bold text-white">V-30.090.311</p>
+            </div>
+            <div class="bg-slate-800/80 p-3 rounded-lg">
+              <p class="text-xs text-slate-400">Teléfono</p>
+              <p class="font-bold text-white">0416-1854219</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate-300">
+            * Cancela el monto equivalente a la tasa BCV del día y envía el capture por WhatsApp para activar tu código QR al instante.
+          </p>
+        </div>
+
+        <!-- BOTONES DE ACCIÓN -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <button onclick="descargarPDFActual()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-5 rounded-xl transition flex items-center justify-center gap-2">
+            Descargar Póliza en PDF (2 Hojas + QR)
+          </button>
+          <a id="btnWhatsapp" href="#" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 px-5 rounded-xl transition flex items-center justify-center gap-2 text-center">
+            Enviar Comprobante por WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: VERIFICAR QR / PLACA ==================== -->
+    <section id="view-verificar" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-7">
+        <div class="border-b border-slate-100 pb-4 mb-5">
+          <span class="inline-block px-2.5 py-1 text-xs font-bold bg-emerald-100 text-emerald-800 rounded-full mb-2">CONSULTA PÚBLICA EN TIEMPO REAL</span>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Verificación Oficial de Póliza RCV</h2>
+          <p class="text-sm text-slate-500 mt-1">Consulta la validez en la nube ingresando el número de contrato o la placa del vehículo.</p>
+        </div>
+
+        <form id="searchForm" class="flex flex-col sm:flex-row gap-3">
+          <input type="text" id="searchInput" required placeholder="Ej: AB123CD o PÓLIZA-VIRT-CONTRATO-500" class="flex-1 uppercase rounded-xl border border-slate-300 px-4 py-3 text-sm font-semibold focus:outline-none focus:border-amber-500" />
+          <button type="submit" class="gold-btn text-white font-bold px-6 py-3 rounded-xl shadow-sm transition">
+            Consultar en la Nube
+          </button>
+        </form>
+
+        <div id="verifyResult" class="mt-6"></div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: PANEL ADMIN ==================== -->
+    <section id="view-admin" class="hidden space-y-6">
+      <!-- LOGIN ADMIN -->
+      <div id="adminLoginBox" class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+        <h2 class="text-lg font-extrabold text-slate-900 mb-1">Acceso de Administrador</h2>
+        <p class="text-xs text-slate-500 mb-4">Ingresa tu clave para gestionar y activar pólizas en la nube.</p>
+        <form id="adminLoginForm" class="space-y-3">
+          <input type="password" id="adminPinInput" required placeholder="Clave de administrador" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:border-amber-500" />
+          <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl text-sm transition">
+            Entrar al Panel
+          </button>
+        </form>
+      </div>
+
+      <!-- DASHBOARD ADMIN -->
+      <div id="adminDashboard" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-7 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900">Control de Pólizas en la Nube</h2>
+            <p class="text-xs text-slate-500">Asesor: ANDERSON ALFREDO CALVO PAREDES • Sincronización en tiempo real</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="cargarPolizasAdmin()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-xl text-xs transition">
+              Actualizar Lista
+            </button>
+            <button onclick="cerrarSesionAdmin()" class="px-3.5 py-2 bg-rose-100 hover:bg-rose-200 text-rose-800 font-bold rounded-xl text-xs transition">
+              Salir
+            </button>
+          </div>
+        </div>
+
+        <div id="adminPoliciesList" class="space-y-3">
+          <p class="text-sm text-slate-500">Cargando registros desde Firebase...</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CONTENEDOR OCULTO PARA GENERAR EL QR EN ALTA RESOLUCIÓN -->
+  <div id="qrHiddenBox" class="hidden"></div>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-5 mt-10">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+      <p><strong class="text-amber-400">SEGUROS ÁVILA DORADA</strong> • Emisión y Verificación Digital RCV</p>
+      <p>Asesor Autorizado: ANDERSON ALFREDO CALVO PAREDES • WhatsApp: 0412-4310782</p>
+    </div>
+  </footer>
+
+  <!-- FIREBASE SDK MODULAR -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      setDoc,
+      updateDoc,
+      collection,
+      query,
+      where,
+      getDocs,
+      orderBy,
+      runTransaction,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // CONFIGURACIÓN REAL DE TU PROYECTO FIREBASE
+    const firebaseConfig = {
+      apiKey: "AIzaSyBFtiH0f1upIfyySzEDOX83N-Jo6YDkTus",
+      authDomain: "avila-dorada-rcv-5619d.firebaseapp.com",
+      projectId: "avila-dorada-rcv-5619d",
+      storageBucket: "avila-dorada-rcv-5619d.firebasestorage.app",
+      messagingSenderId: "350231360960",
+      appId: "1:350231360960:web:43030dd0d21adfbeae0425"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // CONSTANTES DEL NEGOCIO
+    const ASESOR_FIJO = "ANDERSON ALFREDO CALVO PAREDES";
+    const WHATSAPP_RECEPTOR = "584124310782";
+    const ADMIN_PIN = "avila2026";
+    const CORRELATIVO_INICIAL = 500;
+
+    let polizaActual = null;
+
+    // ==================== NAVEGACIÓN DE PESTAÑAS ====================
+    window.switchTab = function(tab) {
+      ['emitir', 'verificar', 'admin'].forEach(t => {
+        document.getElementById(`view-${t}`).classList.add('hidden');
+        const btn = document.getElementById(`tab-${t}`);
+        btn.classList.remove('bg-amber-500', 'text-slate-950');
+        btn.classList.add('text-slate-300');
+      });
+      document.getElementById(`view-${tab}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`tab-${tab}`);
+      activeBtn.classList.add('bg-amber-500', 'text-slate-950');
+      activeBtn.classList.remove('text-slate-300');
+
+      if (tab === 'admin' && sessionStorage.getItem('avila_admin') === '1') {
+        document.getElementById('adminLoginBox').classList.add('hidden');
+        document.getElementById('adminDashboard').classList.remove('hidden');
+        cargarPolizasAdmin();
+      }
+    };
+
+    // SELECCIÓN VISUAL DE PLANES
+    document.querySelectorAll('input[name="plan"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.querySelectorAll('.plan-option').forEach(card => {
+          card.classList.remove('border-amber-500', 'bg-amber-50/40');
+          card.classList.add('border-slate-200');
+        });
+        const selectedCard = radio.closest('.plan-option');
+        selectedCard.classList.add('border-amber-500', 'bg-amber-50/40');
+        selectedCard.classList.remove('border-slate-200');
+      });
+    });
+
+    // COPIAR PAGO MÓVIL
+    window.copiarPagoMovil = function() {
+      const texto = `Pago Móvil Seguros Ávila Dorada:\nBanco: Bancamiga (0172)\nCédula: 30090311\nTeléfono: 04161854219\nMonto: $${polizaActual ? polizaActual.monto : ''} USD (Tasa BCV)`;
+      navigator.clipboard.writeText(texto);
+      alert("Datos de Pago Móvil copiados al portapapeles.");
+    };
+
+    // CALCULAR FECHAS DE VIGENCIA (1 AÑO)
+    function obtenerFechasVigencia() {
+      const hoy = new Date();
+      const vencimiento = new Date(hoy);
+      vencimiento.setFullYear(vencimiento.getFullYear() + 1);
+      const fmt = (d) => d.toLocaleDateString('es-VE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+      return {
+        emision: fmt(hoy),
+        vencimiento: fmt(vencimiento),
+        timestampVencimiento: vencimiento.getTime()
+      };
+    }
+
+    // ==================== GENERAR PÓLIZA EN FIREBASE ====================
+    document.getElementById('policyForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('btnSubmit');
+      btn.disabled = true;
+      btn.innerHTML = `<span>Guardando en la nube...</span>`;
+
+      try {
+        const planRaw = document.querySelector('input[name="plan"]:checked').value.split('|');
+        const tipoPlan = planRaw[0];
+        const monto = Number(planRaw[1]);
+        const descripcionPlan = planRaw[2];
+        const fechas = obtenerFechasVigencia();
+
+        // Transacción atómica para correlativo único global en la nube
+        const counterRef = doc(db, "config", "correlativo");
+        const nuevoNumero = await runTransaction(db, async (transaction) => {
+          const counterSnap = await transaction.get(counterRef);
+          let siguiente = CORRELATIVO_INICIAL;
+          if (counterSnap.exists() && typeof counterSnap.data().ultimo === 'number') {
+            siguiente = counterSnap.data().ultimo + 1;
+          }
+          transaction.set(counterRef, { ultimo: siguiente }, { merge: true });
+          return siguiente;
+        });
+
+        const contratoId = `PÓLIZA-VIRT-CONTRATO-${nuevoNumero}`;
+        const placaLimpia = document.getElementById('placa').value.trim().toUpperCase().replace(/\s+/g, '');
+
+        const datosPoliza = {
+          numero: nuevoNumero,
+          contrato: contratoId,
+          estatus: "PENDIENTE DE PAGO",
+          tipoPlan,
+          descripcionPlan,
+          monto,
+          nombre: document.getElementById('nombre').value.trim().toUpperCase(),
+          cedula: document.getElementById('cedula').value.trim().toUpperCase(),
+          telefono: document.getElementById('telefono').value.trim(),
+          direccion: document.getElementById('direccion').value.trim().toUpperCase(),
+          placa: placaLimpia,
+          marca: document.getElementById('marca').value.trim().toUpperCase(),
+          modelo: document.getElementById('modelo').value.trim().toUpperCase(),
+          anio: document.getElementById('anio').value.trim(),
+          color: document.getElementById('color').value.trim().toUpperCase(),
+          uso: document.getElementById('uso').value.trim().toUpperCase(),
+          serialCarroceria: document.getElementById('serialCarroceria').value.trim().toUpperCase(),
+          serialMotor: document.getElementById('serialMotor').value.trim().toUpperCase(),
+          asesor: ASESOR_FIJO,
+          fechaEmision: fechas.emision,
+          fechaVencimiento: fechas.vencimiento,
+          timestampVencimiento: fechas.timestampVencimiento,
+          creadoEn: serverTimestamp()
+        };
+
+        await setDoc(doc(db, "polizas", contratoId), datosPoliza);
+        polizaActual = datosPoliza;
+
+        // Mostrar resultado
+        document.getElementById('resContrato').textContent = contratoId;
+        document.getElementById('resMonto').textContent = `$${monto} USD`;
+
+        const msgWa = encodeURIComponent(
+          `Hola *Seguros Ávila Dorada*, acabo de generar mi póliza RCV online:\n\n` +
+          `📄 *Contrato:* ${contratoId}\n` +
+          `👤 *Tomador:* ${datosPoliza.nombre}\n` +
+          `🚘 *Vehículo:* ${datosPoliza.marca} ${datosPoliza.modelo} (${datosPoliza.placa})\n` +
+          `💵 *Plan:* ${descripcionPlan} - *$${monto} USD*\n\n` +
+          `Adjunto mi comprobante de Pago Móvil a Bancamiga para su activación.`
+        );
+        document.getElementById('btnWhatsapp').href = `https://wa.me/${WHATSAPP_RECEPTOR}?text=${msgWa}`;
+
+        const resBox = document.getElementById('resultBox');
+        resBox.classList.remove('hidden');
+        resBox.scrollIntoView({ behavior: 'smooth' });
+
+      } catch (err) {
+        console.error(err);
+        alert("Error al conectar con la nube. Verifica tu conexión a internet e intenta de nuevo.");
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>Generar Póliza en la Nube y Ver Datos de Pago</span>`;
+      }
+    });
+
+    // ==================== GENERADOR DE PDF DE 2 HOJAS + QR ====================
+    function generarQRBase64(urlTexto) {
+      return new Promise((resolve) => {
+        const box = document.getElementById('qrHiddenBox');
+        box.innerHTML = "";
+        new QRCode(box, {
+          text: urlTexto,
+          width: 180,
+          height: 180,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+        setTimeout(() => {
+          const canvas = box.querySelector('canvas');
+          if (canvas) {
+            resolve(canvas.toDataURL('image/png'));
+          } else {
+            const img = box.querySelector('img');
+            resolve(img ? img.src : null);
+          }
+        }, 120);
+      });
+    }
+
+    window.descargarPDFActual = async function() {
+      if (!polizaActual) return;
+      await generarPDFPoliza(polizaActual);
+    };
+
+    window.generarPDFPoliza = async function(p) {
+      const { jsPDF } = window.jspdf;
+      const docPdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'letter' });
+
+      const baseUrl = window.location.origin + window.location.pathname;
+      const urlVerificacion = `${baseUrl}?contrato=${encodeURIComponent(p.contrato)}`;
+      const qrDataUrl = await generarQRBase64(urlVerificacion);
+
+      // ----- HOJA 1: CUADRO PÓLIZA RCV -----
+      // Marco exterior
+      docPdf.setDrawColor(180, 130, 20);
+      docPdf.setLineWidth(0.8);
+      docPdf.rect(10, 10, 196, 259);
+
+      // Encabezado
+      docPdf.setFillColor(15, 23, 42);
+      docPdf.rect(10, 10, 196, 28, 'F');
+      docPdf.setTextColor(245, 158, 11);
+      docPdf.setFont("helvetica", "bold");
+      docPdf.setFontSize(17);
+      docPdf.text("SEGUROS ÁVILA DORADA", 18, 22);
+      docPdf.setTextColor(255, 255, 255);
+      docPdf.setFontSize(9);
+      docPdf.setFont("helvetica", "normal");
+      docPdf.text("PÓLIZA DE RESPONSABILIDAD CIVIL VEHICULAR (RCV)", 18, 28);
+      docPdf.text("REPÚBLICA BOLIVARIANA DE VENEZUELA", 18, 33);
+
+      // Número de contrato
+      docPdf.setTextColor(245, 158, 11);
+      docPdf.setFont("helvetica", "bold");
+      docPdf.setFontSize(10);
+      docPdf.text(p.contrato, 198, 22, { align: "right" });
+      docPdf.setTextColor(255, 255, 255);
+      docPdf.setFontSize(8.5);
+      docPdf.text(`ESTATUS: ${p.estatus}`, 198, 28, { align: "right" });
+      docPdf.text(`PLAN: ${p.tipoPlan} ($${p.monto} USD)`, 198, 33, { align: "right" });
+
+      // Marca de agua suave
+      docPdf.saveGraphicsState();
+      docPdf.setTextColor(235, 238, 242);
+      docPdf.setFontSize(34);
+      docPdf.setFont("helvetica", "bold");
+      docPdf.text("SEGUROS ÁVILA DORADA", 108, 155, { align: "center", angle: 35 });
+      docPdf.restoreGraphicsState();
+
+      // Vigencia
+      let y = 46;
+      docPdf.setFillColor(241, 245, 249);
+      docPdf.rect(14, y, 188, 14, 'F');
+      docPdf.setTextColor(15, 23, 42);
+      docPdf.setFontSize(9);
+      docPdf.setFont("helvetica", "bold");
+      docPdf.text(`FECHA DE EMISIÓN: ${p.fechaEmision}`, 18, y + 6);
+      docPdf.text(`FECHA DE VENCIMIENTO: ${p.fechaVencimiento}`, 85, y + 6);
+      docPdf.text(`VIGENCIA: 1 AÑO`, 165, y + 6);
+      docPdf.setFont("helvetica", "normal");
+      docPdf.setFontSize(8);
+      docPdf.text(`ASESOR AUTORIZADO: ${p.asesor}`, 18, y + 11.5);
+
+      // Sección Tomador
+      y += 20;
+      docPdf.setFillColor(15, 23, 42);
+      docPdf.rect(14, y, 188, 7, 'F');
+      docPdf.setTextColor(255, 255, 255);
+      docPdf.setFont("helvetica", "bold");
+      docPdf.setFontSize(9);
+      docPdf.text("1. IDENTIFICACIÓN DEL TOMADOR / PROPIETARIO", 17, y + 5);
+
+      y += 12;
+      docPdf.setTextColor(30, 41, 59);
+      docPdf.setFontSize(9);
+      docPdf.text(`NOMBRE / RAZÓN SOCIAL: ${p.nombre}`, 17, y);
+      y += 6;
+      docPdf.text(`CÉDULA / RIF: ${p.cedula}`, 17, y);
+      docPdf.text(`TELÉFONO: ${p.telefono}`, 110, y);
+      y += 6;
+      docPdf.text(`DIRECCIÓN: ${p.direccion}`, 17, y);
+
+      // Sección Vehículo
+      y += 10;
+      docPdf.setFillColor(15, 23, 42);
+      docPdf.rect(14, y, 188, 7, 'F');
+      docPdf.setTextColor(255, 255, 255);
+      docPdf.setFont("helvetica", "bold");
+      docPdf.text("2. CARACTERÍSTICAS DEL VEHÍCULO ASEGURADO", 17, y + 5);
+
+      y += 12;
+      docPdf.setTextColor(30, 41, 59);
+      docPdf.text(`PLACA: ${p.placa}`, 17, y);
+      docPdf.text(`MARCA: ${p.marca}`, 75, y);
+      docPdf.text(`MODELO: ${p.modelo}`, 140, y);
+      y += 6;
+      docPdf.text(`AÑO: ${p.anio}`, 17, y);
+      docPdf.text(`COLOR: ${p.color}`, 75, y);
+      docPdf.text(`USO: ${p.uso}`, 140, y);
+      y += 6;
+      docPdf.text(`SERIAL CARROCERÍA: ${p.serialCarroceria}`, 17, y);
+      y += 6;
+      docPdf.text(`SERIAL MOTOR: ${p.serialMotor}`, 17, y);
+
+      // Tabla de Coberturas
+      y += 10;
+      docPdf.setFillColor(15, 23, 42);
+      docPdf.rect(14, y, 188, 7, 'F');
+      docPdf.setTextColor(255, 255, 255);
+      docPdf.text("3. COBERTURAS DE RESPONSABILIDAD CIVIL (LEY DE TRANSPORTE TERRESTRE)", 17, y + 5);
+
+      y += 11;
+      docPdf.setTextColor(30, 41, 59);
+      docPdf.setFont("helvetica", "normal");
+      docPdf.setFontSize(8.5);
+      const coberturas = [
+        ["Daños a Cosas de Terceros", "Incluido (100% Cobertura RCV)"],
+        ["Daños a Personas (Lesiones o Muerte)", "Incluido (100% Cobertura RCV)"],
+        ["Asistencia Legal y Defensa Penal", "Incluido en Territorio Nacional"],
+        ["Ámbito Territorial", "República Bolivariana de Venezuela"]
+      ];
+      coberturas.forEach(row => {
+        docPdf.text(`• ${row[0]}`, 18, y);
+        docPdf.setFont("helvetica", "bold");
+        docPdf.text(row[1], 198, y, { align: "right" });
+        docPdf.setFont("helvetica", "normal");
+        y += 5.5;
+      });
+
+      // QR y Sello Digital
+      y += 8;
+      if (qrDataUrl) {
+        docPdf.addImage(qrDataUrl, 'PNG', 18, y, 36, 36);
+      }
+      docPdf.setFont("helvetica", "bold");
+      docPdf.setFontSize(8.5);
+      docPdf.setTextColor(15, 23, 42);
+      docPdf.text("VERIFICACIÓN DIGITAL EN LA NUBE", 60, y + 7);
+      docPdf.setFont("helvetica", "normal");
+      docPdf.setFontSize(7.5);
+      docPdf.setTextColor(71, 85, 105);
+      docPdf.text("Escanee el código QR con cualquier teléfono inteligente para comprobar", 60, y + 12);
+      docPdf.text("en tiempo real la autenticidad y vigencia de este contrato ante", 60, y + 16);
+      docPdf.text("autoridades de tránsito y terceros.", 60, y + 20);
+      docPdf.setFont("helvetica", "bold");
+      docPdf.setTextColor(180, 83, 9);
+      docPdf.text(`ID Nube: ${p.contrato}`, 60, y + 27);
+
+      // Sello y Firma
+      docPdf.setDrawColor(29, 78, 216);
+      docPdf.setLineWidth(0.6);
+      docPdf.roundedRect(142, y + 2, 56, 26, 3, 3);
+      docPdf.setTextColor(29, 78, 216);
+      docPdf.setFont("helvetica", "bold");
+      docPdf.setFontSize(8);
+      docPdf.text("SEGUROS ÁVILA DORADA", 170, y + 9, { align: "center" });
+      docPdf.setFontSize(7);
+      docPdf.text("EMISIÓN DIGITAL VERIFICADA", 170, y + 14, { align: "center" });
+      docPdf.setFont("helvetica", "italic");
+      docPdf.text("Firma Autorizada", 170, y + 22, { align: "center" });
+
+      // ----- HOJA 2: CARNET DE CIRCULACIÓN RCV RECORTABLE -----
+      docPdf.addPage();
+      docPdf.setFont("helvetica", "bold");
+      docPdf.setFontSize(11);
+      docPdf.setTextColor(15, 23, 42);
+      docPdf.text("CERTIFICADO PORTÁTIL DE RESPONSABILIDAD CIVIL (RECORTAR Y PLASTIFICAR)", 108, 20, { align: "center" });
+
+      // Tarjeta Frontal
+      docPdf.setDrawColor(15, 23, 42);
+      docPdf.setLineWidth(0.6);
+      docPdf.rect(18, 30, 88, 56);
+      docPdf.setFillColor(15, 23, 42);
+      docPdf.rect(18, 30, 88, 11, 'F');
+      docPdf.setTextColor(245, 158, 11);
+      docPdf.setFontSize(8.5);
+      docPdf.text("SEGUROS ÁVILA DORADA - RCV", 62, 37, { align: "center" });
+
+      docPdf.setTextColor(15, 23, 42);
+      docPdf.setFontSize(7);
+      docPdf.text(`CONTRATO: ${p.contrato}`, 21, 46);
+      docPdf.text(`TOMADOR: ${p.nombre.substring(0, 32)}`, 21, 51);
+      docPdf.text(`C.I./RIF: ${p.cedula}`, 21, 56);
+      docPdf.text(`PLACA: ${p.placa}  |  AÑO: ${p.anio}`, 21, 61);
+      docPdf.text(`VEHÍCULO: ${p.marca} ${p.modelo}`, 21, 66);
+      docPdf.text(`COLOR: ${p.color}`, 21, 71);
+      docPdf.text(`SERIAL: ${p.serialCarroceria}`, 21, 76);
+      docPdf.setTextColor(180, 83, 9);
+      docPdf.text(`VENCE: ${p.fechaVencimiento}`, 21, 82);
+
+      // Tarjeta Reverso con QR
+      docPdf.rect(110, 30, 88, 56);
+      docPdf.setFillColor(15, 23, 42);
+      docPdf.rect(110, 30, 88, 11, 'F');
+      docPdf.setTextColor(255, 255, 255);
+      docPdf.setFontSize(8);
+      docPdf.text("VALIDACIÓN QR EN TIEMPO REAL", 154, 37, { align: "center" });
+
+      if (qrDataUrl) {
+        docPdf.addImage(qrDataUrl, 'PNG', 115, 44, 34, 34);
+      }
+      docPdf.setTextColor(30, 41, 59);
+      docPdf.setFontSize(6.8);
+      docPdf.text("Porte este certificado junto con", 152, 50);
+      docPdf.text("la documentación del vehículo.", 152, 54);
+      docPdf.text("Asesor:", 152, 62);
+      docPdf.setFont("helvetica", "bold");
+      docPdf.text("ANDERSON CALVO", 152, 66);
+      docPdf.setFont("helvetica", "normal");
+      docPdf.text("WhatsApp: 0412-4310782", 152, 73);
+
+      docPdf.save(`${p.contrato}_${p.placa}.pdf`);
+    };
+
+    // ==================== VERIFICACIÓN PÚBLICA EN FIRESTORE ====================
+    async function consultarPolizaEnNube(termino) {
+      const container = document.getElementById('verifyResult');
+      container.innerHTML = `<p class="text-sm text-slate-500">Consultando base de datos en la nube...</p>`;
+
+      const limpio = termino.trim().toUpperCase();
+      let encontrada = null;
+
+      try {
+        // 1. Buscar por ID exacto de contrato
+        const docSnap = await getDoc(doc(db, "polizas", limpio));
+        if (docSnap.exists()) {
+          encontrada = docSnap.data();
+        } else {
+          // 2. Buscar por placa
+          const placaSinEspacios = limpio.replace(/\s+/g, '');
+          const q = query(collection(db, "polizas"), where("placa", "==", placaSinEspacios));
+          const querySnap = await getDocs(q);
+          if (!querySnap.empty) {
+            // Tomar la más reciente por número
+            let lista = [];
+            querySnap.forEach(d => lista.push(d.data()));
+            lista.sort((a, b) => (b.numero || 0) - (a.numero || 0));
+            encontrada = lista[0];
+          }
+        }
+
+        if (!encontrada) {
+          container.innerHTML = `
+            <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-sm">
+              <strong>No se encontró ninguna póliza</strong> asociada a <strong>${limpio}</strong> en la base de datos. Verifica el número de contrato o placa.
+            </div>`;
+          return;
+        }
+
+        // Verificar estatus real
+        const vencida = encontrada.timestampVencimiento && Date.now() > encontrada.timestampVencimiento;
+        let estadoMostrar = encontrada.estatus;
+        if (vencida && estadoMostrar === "VIGENTE / ACTIVA") {
+          estadoMostrar = "VENCIDA";
+        }
+
+        const esActiva = estadoMostrar === "VIGENTE / ACTIVA";
+        const badgeClass = esActiva
+          ? "bg-emerald-100 text-emerald-800 border-emerald-300"
+          : (estadoMostrar === "PENDIENTE DE PAGO"
+              ? "bg-amber-100 text-amber-800 border-amber-300"
+              : "bg-rose-100 text-rose-800 border-rose-300");
+
+        container.innerHTML = `
+          <div class="border-2 ${esActiva ? 'border-emerald-500' : 'border-amber-400'} rounded-2xl p-5 bg-slate-50 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
+              <div>
+                <p class="text-xs text-slate-500">Contrato Verificado en la Nube</p>
+                <h3 class="text-lg font-extrabold text-slate-900">${encontrada.contrato}</h3>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-extrabold border ${badgeClass}">
+                ${estadoMostrar}
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+              <div><span class="text-slate-500 text-xs block">Tomador / Propietario</span><strong>${encontrada.nombre}</strong></div>
+              <div><span class="text-slate-500 text-xs block">Cédula / RIF</span><strong>${encontrada.cedula}</strong></div>
+              <div><span class="text-slate-500 text-xs block">Placa</span><strong class="text-base">${encontrada.placa}</strong></div>
+              <div><span class="text-slate-500 text-xs block">Vehículo</span><strong>${encontrada.marca} ${encontrada.modelo} (${encontrada.anio}) - ${encontrada.color}</strong></div>
+              <div><span class="text-slate-500 text-xs block">Serial Carrocería</span><strong class="font-mono text-xs">${encontrada.serialCarroceria}</strong></div>
+              <div><span class="text-slate-500 text-xs block">Vigencia</span><strong>${encontrada.fechaEmision} al ${encontrada.fechaVencimiento}</strong></div>
+            </div>
+
+            <div class="pt-2 flex flex-wrap gap-2">
+              <button id="btnDescargarVerificada" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition">
+                Descargar Copia PDF
+              </button>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('btnDescargarVerificada').onclick = () => generarPDFPoliza(encontrada);
+
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `<p class="text-sm text-rose-600">Error de conexión al consultar Firebase.</p>`;
+      }
+    }
+
+    document.getElementById('searchForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      consultarPolizaEnNube(document.getElementById('searchInput').value);
+    });
+
+    // DETECCIÓN AUTOMÁTICA DE PARÁMETRO ?contrato=... AL ESCANEAR EL QR
+    const paramsUrl = new URLSearchParams(window.location.search);
+    const contratoParam = paramsUrl.get('contrato');
+    if (contratoParam) {
+      switchTab('verificar');
+      document.getElementById('searchInput').value = contratoParam;
+      consultarPolizaEnNube(contratoParam);
+    }
+
+    // ==================== PANEL DE ADMINISTRADOR ====================
+    document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pin = document.getElementById('adminPinInput').value.trim();
+      if (pin === ADMIN_PIN) {
+        sessionStorage.setItem('avila_admin', '1');
+        document.getElementById('adminLoginBox').classList.add('hidden');
+        document.getElementById('adminDashboard').classList.remove('hidden');
+        cargarPolizasAdmin();
+      } else {
+        alert("Clave incorrecta.");
+      }
+    });
+
+    window.cerrarSesionAdmin = function() {
+      sessionStorage.removeItem('avila_admin');
+      document.getElementById('adminDashboard').classList.add('hidden');
+      document.getElementById('adminLoginBox').classList.remove('hidden');
+      document.getElementById('adminPinInput').value = "";
+    };
+
+    window.cargarPolizasAdmin = async function() {
+      const listBox = document.getElementById('adminPoliciesList');
+      listBox.innerHTML = `<p class="text-sm text-slate-500">Cargando pólizas desde la nube...</p>`;
+
+      try {
+        const snap = await getDocs(collection(db, "polizas"));
+        let polizas = [];
+        snap.forEach(d => polizas.push(d.data()));
+        polizas.sort((a, b) => (b.numero || 0) - (a.numero || 0));
+
+        if (polizas.length === 0) {
+          listBox.innerHTML = `<p class="text-sm text-slate-500">Aún no hay pólizas registradas en la nube.</p>`;
+          return;
+        }
+
+        listBox.innerHTML = polizas.map(p => {
+          const esActiva = p.estatus === "VIGENTE / ACTIVA";
+          return `
+            <div class="border border-slate-200 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50">
+              <div class="space-y-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="font-extrabold text-sm text-slate-900">${p.contrato}</span>
+                  <span class="px-2 py-0.5 text-[11px] font-bold rounded-full ${esActiva ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+                    ${p.estatus}
+                  </span>
+                  <span class="text-xs font-bold text-amber-700">$${p.monto} USD</span>
+                </div>
+                <p class="text-xs text-slate-700"><strong>${p.nombre}</strong> (${p.cedula}) • Tel: ${p.telefono}</p>
+                <p class="text-xs text-slate-500">Placa: <strong>${p.placa}</strong> • ${p.marca} ${p.modelo} (${p.anio}) • Emisión: ${p.fechaEmision}</p>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                ${!esActiva ? `
+                  <button onclick="cambiarEstatusPoliza('${p.contrato}', 'VIGENTE / ACTIVA')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-2 rounded-lg transition">
+                    Aprobar / Activar
+                  </button>` : `
+                  <button onclick="cambiarEstatusPoliza('${p.contrato}', 'ANULADA')" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold px-3 py-2 rounded-lg transition">
+                    Anular
+                  </button>`
+                }
+                <button onclick='generarPDFPoliza(${JSON.stringify(p).replace(/'/g, "&apos;")})' class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-3 py-2 rounded-lg transition">
+                  PDF
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        console.error(err);
+        listBox.innerHTML = `<p class="text-sm text-rose-600">Error al cargar la lista desde Firebase.</p>`;
+      }
+    };
+
+    window.cambiarEstatusPoliza = async function(contratoId, nuevoEstatus) {
+      try {
+        await updateDoc(doc(db, "polizas", contratoId), { estatus: nuevoEstatus });
+        cargarPolizasAdmin();
+      } catch (err) {
+        console.error(err);
+        alert("No se pudo actualizar el estatus.");
+      }
+    };
+  </script>
+</body>
+</html>
