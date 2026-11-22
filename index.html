@@ -8,26 +8,48 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
     body { font-family: 'Inter', sans-serif; }
-    .gold-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #78350f 100%); }
+    .gold-gradient { background: linear-gradient(135deg, #090d16 0%, #1e293b 55%, #78350f 100%); }
     .gold-btn { background: linear-gradient(135deg, #d97706 0%, #b45309 100%); }
     .gold-btn:hover { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      background: linear-gradient(to bottom, #fef08a 0%, #fbbf24 45%, #d97706 85%, #fef3c7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.75));
+      letter-spacing: 0.04em;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 52%;
+      left: 50%;
+      width: 380px;
+      height: 380px;
+      transform: translate(-50%, -50%);
+      background: url('logo-izq.png') no-repeat center center;
+      background-size: contain;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+    }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col relative">
 
   <!-- HEADER -->
-  <header class="gold-gradient text-white shadow-lg sticky top-0 z-40">
+  <header class="gold-gradient text-white shadow-lg sticky top-0 z-40 border-b border-amber-500/30">
     <div class="max-w-5xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <div class="w-12 h-12 rounded-xl bg-white/10 border border-amber-400/50 flex items-center justify-center overflow-hidden shrink-0">
+        <div class="w-12 h-12 rounded-xl bg-white/10 border border-amber-400/60 flex items-center justify-center overflow-hidden shrink-0 shadow-inner">
           <img src="logo-izq.png" alt="Logo" class="w-full h-full object-contain p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
           <span style="display:none;" class="w-full h-full items-center justify-center text-amber-400 font-extrabold text-xl">AD</span>
         </div>
         <div>
-          <h1 class="text-lg sm:text-xl font-extrabold tracking-tight text-amber-400">SEGUROS ÁVILA DORADA</h1>
-          <p class="text-xs text-slate-300">Responsabilidad Civil Vehicular (RCV) • Venezuela</p>
+          <h1 class="brand-title text-xl sm:text-2xl font-black uppercase">SEGUROS ÁVILA DORADA</h1>
+          <p class="text-xs text-amber-200/90 font-medium">Responsabilidad Civil Vehicular (RCV) • Venezuela</p>
         </div>
       </div>
 
@@ -46,11 +68,11 @@
   </header>
 
   <!-- MAIN CONTENT -->
-  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6 relative z-10">
 
     <!-- ==================== TAB 1: EMITIR RCV ==================== -->
     <section id="view-emitir" class="space-y-6">
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-7">
+      <div class="bg-white/95 backdrop-blur-[1px] rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-7">
         <div class="border-b border-slate-100 pb-4 mb-6">
           <span class="inline-block px-2.5 py-1 text-xs font-bold bg-amber-100 text-amber-800 rounded-full mb-2">EMISIÓN DIGITAL INMEDIATA</span>
           <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Cotiza y Genera tu Póliza RCV</h2>
@@ -62,44 +84,44 @@
           <div>
             <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">1. Selecciona el Tipo de Vehículo y Cobertura Anual</label>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="planCards">
-              <label class="cursor-pointer border-2 border-amber-500 bg-amber-50/40 rounded-xl p-3.5 transition plan-option">
-                <input type="radio" name="plan" value="MOTO|12|Motocicleta|550,00 TCR|700,00 TCR|4,00|4,00|4,00" class="hidden" checked>
+              <label class="cursor-pointer border-2 border-amber-500 bg-amber-50/50 rounded-xl p-3.5 transition plan-option">
+                <input type="radio" name="plan" value="MOTO|10|Motocicleta|550,00 TCR|720,00 TCR|5,00|5,00|10,00" class="hidden" checked>
                 <div class="flex justify-between items-start">
                   <span class="font-bold text-slate-900 text-sm">Motocicleta</span>
-                  <span class="text-lg font-extrabold text-amber-600">$12</span>
+                  <span class="text-lg font-extrabold text-amber-600">$10</span>
                 </div>
-                <p class="text-[11px] text-slate-600 mt-1">Cosas: 550 TCR • Personas: 700 TCR</p>
+                <p class="text-[11px] text-slate-600 mt-1">Cosas: 550 TCR • Personas: 720 TCR</p>
                 <p class="text-[11px] text-slate-400">Vigencia 1 Año • Nacional</p>
               </label>
 
               <label class="cursor-pointer border-2 border-slate-200 hover:border-amber-400 rounded-xl p-3.5 transition plan-option">
-                <input type="radio" name="plan" value="PARTICULAR|15|Vehículo Particular / Paseo|680,00 TCR|850,00 TCR|5,50|5,50|4,00" class="hidden">
+                <input type="radio" name="plan" value="PARTICULAR|14|Vehículo Particular|1.553,00 TCR|1.717,00 TCR|7,00|7,00|14,00" class="hidden">
                 <div class="flex justify-between items-start">
-                  <span class="font-bold text-slate-900 text-sm">Particular / Paseo</span>
-                  <span class="text-lg font-extrabold text-amber-600">$15</span>
+                  <span class="font-bold text-slate-900 text-sm">Vehículo Particular</span>
+                  <span class="text-lg font-extrabold text-amber-600">$14</span>
                 </div>
-                <p class="text-[11px] text-slate-600 mt-1">Cosas: 680 TCR • Personas: 850 TCR</p>
-                <p class="text-[11px] text-slate-400">Sedán, Hatchback, Coupé</p>
+                <p class="text-[11px] text-slate-600 mt-1">Cosas: 1.553 TCR • Personas: 1.717 TCR</p>
+                <p class="text-[11px] text-slate-400">Sedán, Hatchback, SUV, Paseo</p>
               </label>
 
               <label class="cursor-pointer border-2 border-slate-200 hover:border-amber-400 rounded-xl p-3.5 transition plan-option">
-                <input type="radio" name="plan" value="CAMIONETA|20|Camioneta / Pick-Up / Rústico|900,00 TCR|1.150,00 TCR|7,50|7,50|5,00" class="hidden">
+                <input type="radio" name="plan" value="CARGA|17|Vehículos de Carga|2.640,00 TCR|2.891,00 TCR|8,50|8,50|17,00" class="hidden">
                 <div class="flex justify-between items-start">
-                  <span class="font-bold text-slate-900 text-sm">Camioneta / Pick-Up</span>
+                  <span class="font-bold text-slate-900 text-sm">Vehículos de Carga</span>
+                  <span class="text-lg font-extrabold text-amber-600">$17</span>
+                </div>
+                <p class="text-[11px] text-slate-600 mt-1">Cosas: 2.640 TCR • Personas: 2.891 TCR</p>
+                <p class="text-[11px] text-slate-400">Pick-Up, Camiones 350/750</p>
+              </label>
+
+              <label class="cursor-pointer border-2 border-slate-200 hover:border-amber-400 rounded-xl p-3.5 transition plan-option">
+                <input type="radio" name="plan" value="PESADOS|20|Gandolas / Lowboys / Pesados|3.437,00 TCR|3.816,00 TCR|10,00|10,00|20,00" class="hidden">
+                <div class="flex justify-between items-start">
+                  <span class="font-bold text-slate-900 text-sm">Gandolas / Lowboys</span>
                   <span class="text-lg font-extrabold text-amber-600">$20</span>
                 </div>
-                <p class="text-[11px] text-slate-600 mt-1">Cosas: 900 TCR • Personas: 1.150 TCR</p>
-                <p class="text-[11px] text-slate-400">SUV, 4x4, Vans, Pick-Up</p>
-              </label>
-
-              <label class="cursor-pointer border-2 border-slate-200 hover:border-amber-400 rounded-xl p-3.5 transition plan-option">
-                <input type="radio" name="plan" value="CARGA|25|Carga / Transporte / Camión|1.200,00 TCR|1.500,00 TCR|9,50|9,50|6,00" class="hidden">
-                <div class="flex justify-between items-start">
-                  <span class="font-bold text-slate-900 text-sm">Carga / Transporte</span>
-                  <span class="text-lg font-extrabold text-amber-600">$25</span>
-                </div>
-                <p class="text-[11px] text-slate-600 mt-1">Cosas: 1.200 TCR • Personas: 1.500 TCR</p>
-                <p class="text-[11px] text-slate-400">Camiones 350/750, Busetas</p>
+                <p class="text-[11px] text-slate-600 mt-1">Cosas: 3.437 TCR • Personas: 3.816 TCR</p>
+                <p class="text-[11px] text-slate-400">Gandolas, Lowboys, Pesados</p>
               </label>
             </div>
           </div>
@@ -184,7 +206,7 @@
           </div>
           <div class="text-right">
             <p class="text-xs text-slate-500">Monto a Cancelar</p>
-            <p class="text-2xl font-extrabold text-amber-600" id="resMonto">$15 USD</p>
+            <p class="text-2xl font-extrabold text-amber-600" id="resMonto">$10 USD</p>
           </div>
         </div>
 
@@ -241,7 +263,7 @@
 
     <!-- ==================== TAB 2: VERIFICAR QR / PLACA ==================== -->
     <section id="view-verificar" class="hidden space-y-6">
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-7">
+      <div class="bg-white/95 rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-7">
         <div class="border-b border-slate-100 pb-4 mb-5">
           <span class="inline-block px-2.5 py-1 text-xs font-bold bg-emerald-100 text-emerald-800 rounded-full mb-2">CONSULTA PÚBLICA EN TIEMPO REAL</span>
           <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Verificación Oficial de Póliza RCV</h2>
@@ -261,7 +283,7 @@
 
     <!-- ==================== TAB 3: PANEL ADMIN ==================== -->
     <section id="view-admin" class="hidden space-y-6">
-      <div id="adminLoginBox" class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+      <div id="adminLoginBox" class="max-w-md mx-auto bg-white/95 rounded-2xl shadow-sm border border-slate-200 p-6">
         <h2 class="text-lg font-extrabold text-slate-900 mb-1">Acceso de Administrador</h2>
         <p class="text-xs text-slate-500 mb-4">Ingresa tu clave para gestionar y activar pólizas en la nube.</p>
         <form id="adminLoginForm" class="space-y-3">
@@ -272,7 +294,7 @@
         </form>
       </div>
 
-      <div id="adminDashboard" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-7 space-y-5">
+      <div id="adminDashboard" class="hidden bg-white/95 rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-7 space-y-5">
         <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
           <div>
             <h2 class="text-xl font-extrabold text-slate-900">Control de Pólizas en la Nube</h2>
@@ -299,7 +321,7 @@
   <div id="qrHiddenBox" class="hidden"></div>
 
   <!-- FOOTER -->
-  <footer class="bg-slate-900 text-slate-400 text-xs py-5 mt-10">
+  <footer class="bg-slate-900 text-slate-400 text-xs py-5 mt-10 relative z-10">
     <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
       <p><strong class="text-amber-400">SEGUROS ÁVILA DORADA</strong> • Emisión y Verificación Digital RCV</p>
       <p>Asesor Autorizado: ANDERSON ALFREDO CALVO PAREDES • WhatsApp: 0412-4310782</p>
@@ -365,11 +387,11 @@
     document.querySelectorAll('input[name="plan"]').forEach(radio => {
       radio.addEventListener('change', () => {
         document.querySelectorAll('.plan-option').forEach(card => {
-          card.classList.remove('border-amber-500', 'bg-amber-50/40');
+          card.classList.remove('border-amber-500', 'bg-amber-50/50');
           card.classList.add('border-slate-200');
         });
         const selectedCard = radio.closest('.plan-option');
-        selectedCard.classList.add('border-amber-500', 'bg-amber-50/40');
+        selectedCard.classList.add('border-amber-500', 'bg-amber-50/50');
         selectedCard.classList.remove('border-slate-200');
       });
     });
@@ -502,7 +524,7 @@
       }
     });
 
-    // ==================== GENERADOR DE PDF (2 HOJAS + LOGOS + SELLO + FIRMA + QR) ====================
+    // ==================== GENERADOR DE PDF (2 HOJAS + MARCA DE AGUA + LOGOS + SELLO + FIRMA + QR) ====================
     function generarQRBase64(urlTexto) {
       return new Promise((resolve) => {
         const box = document.getElementById('qrHiddenBox');
@@ -539,12 +561,12 @@
       const baseUrl = window.location.origin + window.location.pathname;
       const urlVerificacion = `${baseUrl}?contrato=${encodeURIComponent(p.contrato)}`;
 
-      const cobCosas = p.coberturaCosas || "680,00 TCR";
-      const cobPersonas = p.coberturaPersonas || "850,00 TCR";
-      const valCosas = p.pagoCosas || "5,50";
-      const valPersonas = p.pagoPersonas || "5,50";
-      const valGastos = p.gastosEmision || "4,00";
-      const subtotalNum = (Number(p.monto) - Number(valGastos.replace(',', '.'))).toFixed(2).replace('.', ',');
+      const cobCosas = p.coberturaCosas || "550,00 TCR";
+      const cobPersonas = p.coberturaPersonas || "720,00 TCR";
+      const valCosas = p.pagoCosas || "5,00";
+      const valPersonas = p.pagoPersonas || "5,00";
+      const valTotalFmt = `${Number(p.monto).toFixed(2).replace('.', ',')}`;
+      const valGastos = p.gastosEmision || valTotalFmt;
 
       const [qrDataUrl, logoIzq, logoDer, selloImg, firmaImg] = await Promise.all([
         generarQRBase64(urlVerificacion),
@@ -554,7 +576,14 @@
         cargarImagenLocal("firma.png")
       ]);
 
-      // ==================== HOJA 1: CUADRO PÓLIZA + CARNETS ====================
+      // ==================== HOJA 1: MARCA DE AGUA + CUADRO PÓLIZA + CARNETS ====================
+      if (logoIzq) {
+        docPdf.saveGraphicsState();
+        docPdf.setGState(new docPdf.GState({ opacity: 0.08 }));
+        docPdf.addImage(logoIzq, "PNG", 53, 82, 110, 110);
+        docPdf.restoreGraphicsState();
+      }
+
       docPdf.setDrawColor(180, 130, 20);
       docPdf.setLineWidth(0.6);
       docPdf.rect(8, 8, 200, 263);
@@ -566,7 +595,7 @@
         docPdf.setTextColor(180, 110, 10);
         docPdf.setFont("helvetica", "bold");
         docPdf.setFontSize(13);
-        docPdf.text("SEGURO ÁVILA DORADA", 12, 20);
+        docPdf.text("SEGUROS ÁVILA DORADA", 12, 20);
       }
 
       docPdf.setTextColor(15, 23, 42);
@@ -638,8 +667,8 @@
       docPdf.rect(11, y, 194, 6, 'F');
       docPdf.setTextColor(255, 255, 255);
       docPdf.text("COBERTURAS", 14, y + 4.2);
-      docPdf.text("MONTO COBERTURAS ($)", 110, y + 4.2, { align: "center" });
-      docPdf.text("PAGO", 200, y + 4.2, { align: "right" });
+      docPdf.text("MONTO COBERTURAS (TCR)", 110, y + 4.2, { align: "center" });
+      docPdf.text("PAGO ($)", 200, y + 4.2, { align: "right" });
 
       y += 9.5;
       docPdf.setTextColor(15, 23, 42);
@@ -663,14 +692,14 @@
       docPdf.text(`${valGastos} $`, 200, y, { align: "right" });
       y += 4.5;
       docPdf.text("SUBTOTAL", 14, y);
-      docPdf.text(`${subtotalNum} $`, 200, y, { align: "right" });
+      docPdf.text(`${valTotalFmt} $`, 200, y, { align: "right" });
       y += 4.5;
       docPdf.text("DESCUENTO", 14, y);
-      docPdf.text("$0,00 $", 200, y, { align: "right" });
+      docPdf.text("0,00 $", 200, y, { align: "right" });
       y += 4.5;
       docPdf.setTextColor(153, 27, 27);
       docPdf.text("TOTAL PAGO", 14, y);
-      docPdf.text(`${p.monto},00 $`, 200, y, { align: "right" });
+      docPdf.text(`${valTotalFmt} $`, 200, y, { align: "right" });
 
       // Zona de Firmas, Sello y QR
       y += 5;
@@ -686,7 +715,7 @@
         docPdf.setDrawColor(29, 78, 216);
         docPdf.roundedRect(68, y + 2, 50, 19, 2, 2);
         docPdf.setTextColor(29, 78, 216);
-        docPdf.text("SEGURO ÁVILA DORADA", 93, y + 10, { align: "center" });
+        docPdf.text("SEGUROS ÁVILA DORADA", 93, y + 10, { align: "center" });
         docPdf.text("OFICINA PRINCIPAL", 93, y + 15, { align: "center" });
       }
 
@@ -759,8 +788,16 @@
       docPdf.setTextColor(180, 83, 9);
       docPdf.text(p.contrato, 157, y + 45, { align: "center" });
 
-      // ==================== HOJA 2: CONDICIONADO + COMPROBANTE DE PAGO ====================
+      // ==================== HOJA 2: MARCA DE AGUA + CONDICIONADO + COMPROBANTE DE PAGO ====================
       docPdf.addPage();
+
+      if (logoIzq) {
+        docPdf.saveGraphicsState();
+        docPdf.setGState(new docPdf.GState({ opacity: 0.08 }));
+        docPdf.addImage(logoIzq, "PNG", 53, 82, 110, 110);
+        docPdf.restoreGraphicsState();
+      }
+
       docPdf.setTextColor(15, 23, 42);
       docPdf.setFont("helvetica", "bold");
       docPdf.setFontSize(10);
