@@ -457,7 +457,6 @@
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
 
-      // Trazo caligráfico principal de firma electrónica
       ctx.beginPath();
       ctx.moveTo(45, 112);
       ctx.bezierCurveTo(75, 36, 128, 32, 134, 108);
@@ -468,7 +467,6 @@
       ctx.bezierCurveTo(324, 126, 355, 114, 382, 98);
       ctx.stroke();
 
-      // Rúbrica inferior con trazo firme
       ctx.lineWidth = 3.2;
       ctx.beginPath();
       ctx.moveTo(28, 124);
@@ -807,10 +805,11 @@
       docPdf.text(`SERIAL CARROCERÍA: ${p.serialCarroceria}`, 15, y + 31);
       docPdf.text(`EMISIÓN: ${p.fechaEmision}`, 15, y + 37);
 
-      dibujarImagenConOpacidad(docPdf, firmaImg, 58, y + 31, 26, 12, 0.70);
-      dibujarImagenConOpacidad(docPdf, logoIzq, 82, y + 35, 21, 13, 0.70);
+      // Logo debajo de EMISIÓN y firma libre en su espacio
+      dibujarImagenConOpacidad(docPdf, logoIzq, 15, y + 39, 24, 11, 0.70);
+      dibujarImagenConOpacidad(docPdf, firmaImg, 62, y + 31, 32, 13, 0.70);
       docPdf.setFontSize(6.5);
-      docPdf.text("FIRMA AUTORIZADA", 70, y + 47, { align: "center" });
+      docPdf.text("FIRMA AUTORIZADA", 78, y + 47, { align: "center" });
 
       // CARNET DERECHO
       docPdf.rect(110, y, 94, 52);
