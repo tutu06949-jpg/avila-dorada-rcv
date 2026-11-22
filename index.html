@@ -43,7 +43,7 @@
       transform: translate(-50%, -50%);
       background: url('logo-izq.png') no-repeat center center;
       background-size: contain;
-      opacity: 0.06;
+      opacity: 0.12;
       pointer-events: none;
       z-index: 0;
     }
@@ -444,6 +444,14 @@
       });
     }
 
+    function dibujarImagenConOpacidad(docPdf, imgData, x, y, w, h, opacidad) {
+      if (!imgData) return;
+      docPdf.saveGraphicsState();
+      docPdf.setGState(new docPdf.GState({ opacity: opacidad }));
+      docPdf.addImage(imgData, "PNG", x, y, w, h);
+      docPdf.restoreGraphicsState();
+    }
+
     // ==================== GUARDAR PÓLIZA EN FIREBASE ====================
     document.getElementById('policyForm').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -589,19 +597,14 @@
       ]);
 
       // ==================== HOJA 1 ====================
-      if (logoIzq) {
-        docPdf.saveGraphicsState();
-        docPdf.setGState(new docPdf.GState({ opacity: 0.06 }));
-        docPdf.addImage(logoIzq, "PNG", 18, 48, 180, 180);
-        docPdf.restoreGraphicsState();
-      }
+      dibujarImagenConOpacidad(docPdf, logoIzq, 18, 48, 180, 180, 0.12);
 
       docPdf.setDrawColor(180, 130, 20);
       docPdf.setLineWidth(0.6);
       docPdf.rect(8, 8, 200, 263);
 
       if (logoIzq) {
-        docPdf.addImage(logoIzq, "PNG", 12, 11, 40, 17);
+        dibujarImagenConOpacidad(docPdf, logoIzq, 12, 11, 40, 17, 0.70);
       } else {
         docPdf.setTextColor(180, 110, 10);
         docPdf.setFont("helvetica", "bold");
@@ -725,9 +728,7 @@
         docPdf.text("OFICINA PRINCIPAL CARACAS", 93, y + 15, { align: "center" });
       }
 
-      if (firmaImg) {
-        docPdf.addImage(firmaImg, "PNG", 125, y, 40, 17);
-      }
+      dibujarImagenConOpacidad(docPdf, firmaImg, 125, y, 40, 17, 0.70);
       docPdf.setDrawColor(15, 23, 42);
       docPdf.line(124, y + 17, 166, y + 17);
       docPdf.setTextColor(15, 23, 42);
@@ -772,16 +773,17 @@
       docPdf.text(`SERIAL CARROCERÍA: ${p.serialCarroceria}`, 15, y + 31);
       docPdf.text(`EMISIÓN: ${p.fechaEmision}`, 15, y + 37);
 
-      if (firmaImg) docPdf.addImage(firmaImg, "PNG", 58, y + 31, 26, 12);
-      if (logoIzq) docPdf.addImage(logoIzq, "PNG", 82, y + 35, 21, 13);
+      dibujarImagenConOpacidad(docPdf, firmaImg, 58, y + 31, 26, 12, 0.70);
+      dibujarImagenConOpacidad(docPdf, logoIzq, 82, y + 35, 21, 13, 0.70);
       docPdf.setFontSize(6.5);
       docPdf.text("FIRMA AUTORIZADA", 70, y + 47, { align: "center" });
 
       // CARNET DERECHO
       docPdf.rect(110, y, 94, 52);
-      if (logoIzq) docPdf.addImage(logoIzq, "PNG", 112, y + 2, 24, 12);
+      dibujarImagenConOpacidad(docPdf, logoIzq, 112, y + 2, 24, 12, 0.70);
       if (selloImg) docPdf.addImage(selloImg, "PNG", 138, y + 2, 34, 15);
       if (qrDataUrl) docPdf.addImage(qrDataUrl, "PNG", 176, y + 2, 25, 25);
+      dibujarImagenConOpacidad(docPdf, logoDer, 174, y + 34, 27, 14, 0.70);
 
       docPdf.setTextColor(15, 23, 42);
       docPdf.setFontSize(6.8);
@@ -790,17 +792,12 @@
       docPdf.text(`DIRECCIÓN: ${p.direccion.substring(0, 36)}`, 113, y + 33);
       docPdf.setFontSize(8);
       docPdf.setTextColor(180, 83, 9);
-      docPdf.text(p.contrato, 157, y + 45, { align: "center" });
+      docPdf.text(p.contrato, 143, y + 45, { align: "center" });
 
       // ==================== HOJA 2 ====================
       docPdf.addPage();
 
-      if (logoIzq) {
-        docPdf.saveGraphicsState();
-        docPdf.setGState(new docPdf.GState({ opacity: 0.06 }));
-        docPdf.addImage(logoIzq, "PNG", 18, 48, 180, 180);
-        docPdf.restoreGraphicsState();
-      }
+      dibujarImagenConOpacidad(docPdf, logoIzq, 18, 48, 180, 180, 0.12);
 
       docPdf.setTextColor(15, 23, 42);
       docPdf.setFont("helvetica", "bold");
@@ -838,7 +835,7 @@
       docPdf.setLineDashPattern([], 0);
 
       cy += 6;
-      if (logoIzq) docPdf.addImage(logoIzq, "PNG", 12, cy, 38, 16);
+      dibujarImagenConOpacidad(docPdf, logoIzq, 12, cy, 38, 16, 0.70);
       if (logoDer) docPdf.addImage(logoDer, "PNG", 166, cy, 38, 16);
 
       docPdf.setTextColor(153, 27, 27);
@@ -858,9 +855,7 @@
       if (selloImg) {
         docPdf.addImage(selloImg, "PNG", 36, cy, 52, 22);
       }
-      if (firmaImg) {
-        docPdf.addImage(firmaImg, "PNG", 112, cy - 1, 40, 18);
-      }
+      dibujarImagenConOpacidad(docPdf, firmaImg, 112, cy - 1, 40, 18, 0.70);
       docPdf.line(110, cy + 18, 154, cy + 18);
       docPdf.setFontSize(7.5);
       docPdf.text("FIRMA AUTORIZADA", 132, cy + 22, { align: "center" });
