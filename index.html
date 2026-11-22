@@ -41,12 +41,9 @@
       width: 680px;
       height: 680px;
       transform: translate(-50%, -50%);
-      background-image: var(--wm-url, url('logo-izq.png'));
-      background-repeat: no-repeat;
-      background-position: center center;
+      background: url('logo-izq.png') no-repeat center center;
       background-size: contain;
-      opacity: 0.12;
-      mix-blend-mode: multiply;
+      opacity: 0.06;
       pointer-events: none;
       z-index: 0;
     }
@@ -59,7 +56,7 @@
     <div class="max-w-5xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3">
         <div class="w-12 h-12 rounded-xl bg-white/10 border border-amber-400/60 flex items-center justify-center overflow-hidden shrink-0 shadow-inner">
-          <img id="headerLogoImg" src="logo-izq.png" alt="Logo" class="w-full h-full object-contain p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <img src="logo-izq.png" alt="Logo" class="w-full h-full object-contain p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
           <span style="display:none;" class="w-full h-full items-center justify-center text-amber-400 font-extrabold text-xl">AD</span>
         </div>
         <div>
@@ -429,8 +426,8 @@
       };
     }
 
-    // ==================== CARGAR Y LIMPIAR FONDO SOLO EN LOGOS Y FIRMA ====================
-    function cargarImagenLocal(ruta, quitarFondo = false) {
+    // ==================== CARGAR IMÁGENES DIRECTAS ====================
+    function cargarImagenLocal(ruta) {
       return new Promise((resolve) => {
         const img = new Image();
         img.crossOrigin = "Anonymous";
@@ -440,43 +437,12 @@
           canvas.height = img.height;
           const ctx = canvas.getContext("2d");
           ctx.drawImage(img, 0, 0);
-
-          if (quitarFondo) {
-            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const data = imgData.data;
-            const bgR = data[0], bgG = data[1], bgB = data[2];
-
-            for (let i = 0; i < data.length; i += 4) {
-              const r = data[i];
-              const g = data[i + 1];
-              const b = data[i + 2];
-
-              const distEsquina = Math.abs(r - bgR) + Math.abs(g - bgG) + Math.abs(b - bgB);
-              const esClaro = (r > 195 && g > 195 && b > 195);
-
-              if (distEsquina < 75 || esClaro) {
-                data[i + 3] = 0;
-              } else if (distEsquina < 120) {
-                data[i + 3] = Math.round(((distEsquina - 75) / 45) * 255);
-              }
-            }
-            ctx.putImageData(imgData, 0, 0);
-          }
-
           resolve(canvas.toDataURL("image/png"));
         };
         img.onerror = () => resolve(null);
         img.src = ruta;
       });
     }
-
-    cargarImagenLocal("logo-izq.png", true).then((logoLimpio) => {
-      if (logoLimpio) {
-        document.documentElement.style.setProperty('--wm-url', `url('${logoLimpio}')`);
-        const hdrLogo = document.getElementById('headerLogoImg');
-        if (hdrLogo) hdrLogo.src = logoLimpio;
-      }
-    });
 
     // ==================== GUARDAR PÓLIZA EN FIREBASE ====================
     document.getElementById('policyForm').addEventListener('submit', async (e) => {
@@ -616,16 +582,16 @@
 
       const [qrDataUrl, logoIzq, logoDer, selloImg, firmaImg] = await Promise.all([
         generarQRBase64(urlVerificacion),
-        cargarImagenLocal("logo-izq.png", true),
-        cargarImagenLocal("logo-der.png", true),
-        cargarImagenLocal("sello.png", false),
-        cargarImagenLocal("firma.png", true)
+        cargarImagenLocal("logo-izq.png"),
+        cargarImagenLocal("logo-der.png"),
+        cargarImagenLocal("sello.png"),
+        cargarImagenLocal("firma.png")
       ]);
 
       // ==================== HOJA 1 ====================
       if (logoIzq) {
         docPdf.saveGraphicsState();
-        docPdf.setGState(new docPdf.GState({ opacity: 0.12 }));
+        docPdf.setGState(new docPdf.GState({ opacity: 0.06 }));
         docPdf.addImage(logoIzq, "PNG", 18, 48, 180, 180);
         docPdf.restoreGraphicsState();
       }
@@ -831,7 +797,7 @@
 
       if (logoIzq) {
         docPdf.saveGraphicsState();
-        docPdf.setGState(new docPdf.GState({ opacity: 0.12 }));
+        docPdf.setGState(new docPdf.GState({ opacity: 0.06 }));
         docPdf.addImage(logoIzq, "PNG", 18, 48, 180, 180);
         docPdf.restoreGraphicsState();
       }
