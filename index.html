@@ -349,6 +349,7 @@
       getDoc,
       setDoc,
       updateDoc,
+      deleteDoc,
       collection,
       query,
       where,
@@ -457,7 +458,6 @@
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
 
-      // Tres bucles altos característicos de la firma aprobada
       ctx.lineWidth = 4.2;
       ctx.beginPath();
       ctx.moveTo(155, 148);
@@ -469,7 +469,6 @@
       ctx.bezierCurveTo(476, 36, 474, 122, 434, 136);
       ctx.stroke();
 
-      // Cursiva central entrelazada
       ctx.lineWidth = 3.8;
       ctx.beginPath();
       ctx.moveTo(96, 98);
@@ -482,7 +481,6 @@
       ctx.bezierCurveTo(358, 122, 384, 118, 404, 104);
       ctx.stroke();
 
-      // Raya inferior limpia de la firma (sin garabato inferior)
       ctx.lineWidth = 3.2;
       ctx.beginPath();
       ctx.moveTo(52, 176);
@@ -777,7 +775,6 @@
         docPdf.text("OFICINA PRINCIPAL CARACAS", 93, y + 15, { align: "center" });
       }
 
-      // Firma pegada un poco más abajo sobre la raya de firma autorizada
       dibujarImagenConOpacidad(docPdf, firmaImg, 124, y + 2, 42, 18, 0.70);
       docPdf.setDrawColor(15, 23, 42);
       docPdf.line(124, y + 17, 166, y + 17);
@@ -823,7 +820,6 @@
       docPdf.text(`SERIAL CARROCERÍA: ${p.serialCarroceria}`, 15, y + 31);
       docPdf.text(`EMISIÓN: ${p.fechaEmision}`, 15, y + 37);
 
-      // Logo debajo de EMISIÓN y firma pegada un poco más abajo sobre la raya del carnet
       dibujarImagenConOpacidad(docPdf, logoIzq, 15, y + 39, 24, 11, 0.70);
       dibujarImagenConOpacidad(docPdf, firmaImg, 61, y + 31, 34, 14, 0.70);
       docPdf.setDrawColor(15, 23, 42);
@@ -908,7 +904,6 @@
       if (selloImg) {
         docPdf.addImage(selloImg, "PNG", 36, cy, 52, 22);
       }
-      // Firma pegada un poco más abajo sobre la raya del comprobante
       dibujarImagenConOpacidad(docPdf, firmaImg, 111, cy + 1, 42, 19, 0.70);
       docPdf.line(110, cy + 18, 154, cy + 18);
       docPdf.setFontSize(7.5);
@@ -1089,6 +1084,9 @@
                 <button onclick='generarPDFPoliza(${JSON.stringify(p).replace(/'/g, "&apos;")}, "descargar")' class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-3 py-2 rounded-lg transition">
                   PDF
                 </button>
+                <button onclick="eliminarPoliza('${p.contrato}')" class="bg-slate-200 hover:bg-rose-700 hover:text-white text-rose-800 text-xs font-bold px-3 py-2 rounded-lg transition">
+                  Quitar
+                </button>
               </div>
             </div>
           `;
@@ -1106,6 +1104,19 @@
       } catch (err) {
         console.error(err);
         alert("No se pudo actualizar el estatus.");
+      }
+    };
+
+    window.eliminarPoliza = async function(contratoId) {
+      const confirmar = confirm(`¿Seguro que deseas quitar permanentemente la póliza ${contratoId}?`);
+      if (!confirmar) return;
+
+      try {
+        await deleteDoc(doc(db, "polizas", contratoId));
+        cargarPolizasAdmin();
+      } catch (err) {
+        console.error(err);
+        alert("No se pudo quitar la póliza. Verifica los permisos en Firestore.");
       }
     };
   </script>
