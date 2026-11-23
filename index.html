@@ -444,30 +444,52 @@
       });
     }
 
-    // ==================== FIRMA CALIGRÁFICA LIMPIA SIN FONDO ====================
+    // ==================== FIRMA LIMPIA SIN FONDO (TRAZO OSCURO) ====================
     function generarFirmaElectronicaTransparente() {
       const canvas = document.createElement("canvas");
-      canvas.width = 460;
-      canvas.height = 170;
+      canvas.width = 520;
+      canvas.height = 240;
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       ctx.save();
-      ctx.translate(30, 108);
-      ctx.rotate(-0.08);
-      ctx.fillStyle = "#0f172a";
-      ctx.font = "italic 68px 'Georgia', 'Times New Roman', serif";
-      ctx.fillText("A. Calvo", 0, 0);
-
       ctx.strokeStyle = "#0f172a";
-      ctx.lineWidth = 3.2;
       ctx.lineCap = "round";
-      ctx.beginPath();
-      ctx.moveTo(8, 16);
-      ctx.bezierCurveTo(115, 34, 245, 28, 365, 6);
-      ctx.stroke();
-      ctx.restore();
+      ctx.lineJoin = "round";
 
+      // Tres bucles altos característicos de la firma aprobada
+      ctx.lineWidth = 4.2;
+      ctx.beginPath();
+      ctx.moveTo(155, 148);
+      ctx.bezierCurveTo(155, 55, 222, 12, 228, 72);
+      ctx.bezierCurveTo(234, 128, 212, 152, 206, 134);
+      ctx.bezierCurveTo(202, 118, 265, 32, 312, 42);
+      ctx.bezierCurveTo(352, 50, 344, 136, 325, 142);
+      ctx.bezierCurveTo(312, 146, 362, 22, 428, 30);
+      ctx.bezierCurveTo(476, 36, 474, 122, 434, 136);
+      ctx.stroke();
+
+      // Cursiva central entrelazada
+      ctx.lineWidth = 3.8;
+      ctx.beginPath();
+      ctx.moveTo(96, 98);
+      ctx.bezierCurveTo(106, 126, 138, 128, 158, 108);
+      ctx.bezierCurveTo(164, 124, 178, 124, 186, 108);
+      ctx.bezierCurveTo(192, 124, 208, 124, 218, 108);
+      ctx.bezierCurveTo(226, 124, 242, 124, 254, 106);
+      ctx.bezierCurveTo(264, 124, 282, 124, 296, 108);
+      ctx.bezierCurveTo(306, 124, 328, 124, 346, 106);
+      ctx.bezierCurveTo(358, 122, 384, 118, 404, 104);
+      ctx.stroke();
+
+      // Raya inferior limpia de la firma (sin garabato inferior)
+      ctx.lineWidth = 3.2;
+      ctx.beginPath();
+      ctx.moveTo(52, 176);
+      ctx.bezierCurveTo(185, 162, 345, 154, 492, 152);
+      ctx.stroke();
+
+      ctx.restore();
       return canvas.toDataURL("image/png");
     }
 
@@ -755,7 +777,8 @@
         docPdf.text("OFICINA PRINCIPAL CARACAS", 93, y + 15, { align: "center" });
       }
 
-      dibujarImagenConOpacidad(docPdf, firmaImg, 125, y, 40, 17, 0.70);
+      // Firma pegada un poco más abajo sobre la raya de firma autorizada
+      dibujarImagenConOpacidad(docPdf, firmaImg, 124, y + 2, 42, 18, 0.70);
       docPdf.setDrawColor(15, 23, 42);
       docPdf.line(124, y + 17, 166, y + 17);
       docPdf.setTextColor(15, 23, 42);
@@ -800,9 +823,9 @@
       docPdf.text(`SERIAL CARROCERÍA: ${p.serialCarroceria}`, 15, y + 31);
       docPdf.text(`EMISIÓN: ${p.fechaEmision}`, 15, y + 37);
 
-      // Logo debajo de EMISIÓN, firma con raya debajo y FIRMA AUTORIZADA
+      // Logo debajo de EMISIÓN y firma pegada un poco más abajo sobre la raya del carnet
       dibujarImagenConOpacidad(docPdf, logoIzq, 15, y + 39, 24, 11, 0.70);
-      dibujarImagenConOpacidad(docPdf, firmaImg, 62, y + 29, 32, 13, 0.70);
+      dibujarImagenConOpacidad(docPdf, firmaImg, 61, y + 31, 34, 14, 0.70);
       docPdf.setDrawColor(15, 23, 42);
       docPdf.line(60, y + 43, 96, y + 43);
       docPdf.setFontSize(6.5);
@@ -885,7 +908,8 @@
       if (selloImg) {
         docPdf.addImage(selloImg, "PNG", 36, cy, 52, 22);
       }
-      dibujarImagenConOpacidad(docPdf, firmaImg, 112, cy - 1, 40, 18, 0.70);
+      // Firma pegada un poco más abajo sobre la raya del comprobante
+      dibujarImagenConOpacidad(docPdf, firmaImg, 111, cy + 1, 42, 19, 0.70);
       docPdf.line(110, cy + 18, 154, cy + 18);
       docPdf.setFontSize(7.5);
       docPdf.text("FIRMA AUTORIZADA", 132, cy + 22, { align: "center" });
