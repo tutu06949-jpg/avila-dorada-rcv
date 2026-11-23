@@ -444,34 +444,29 @@
       });
     }
 
-    // ==================== FIRMA ELECTRÓNICA SIN FONDO (CANVAS TRANSPARENTE) ====================
+    // ==================== FIRMA CALIGRÁFICA LIMPIA SIN FONDO ====================
     function generarFirmaElectronicaTransparente() {
       const canvas = document.createElement("canvas");
-      canvas.width = 420;
+      canvas.width = 460;
       canvas.height = 170;
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      ctx.save();
+      ctx.translate(30, 108);
+      ctx.rotate(-0.08);
+      ctx.fillStyle = "#0f172a";
+      ctx.font = "italic 68px 'Georgia', 'Times New Roman', serif";
+      ctx.fillText("A. Calvo", 0, 0);
+
       ctx.strokeStyle = "#0f172a";
-      ctx.lineWidth = 4.2;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-
-      ctx.beginPath();
-      ctx.moveTo(45, 112);
-      ctx.bezierCurveTo(75, 36, 128, 32, 134, 108);
-      ctx.bezierCurveTo(138, 135, 112, 128, 126, 94);
-      ctx.bezierCurveTo(148, 46, 198, 42, 206, 106);
-      ctx.bezierCurveTo(212, 136, 192, 132, 212, 92);
-      ctx.bezierCurveTo(238, 45, 295, 48, 315, 104);
-      ctx.bezierCurveTo(324, 126, 355, 114, 382, 98);
-      ctx.stroke();
-
       ctx.lineWidth = 3.2;
+      ctx.lineCap = "round";
       ctx.beginPath();
-      ctx.moveTo(28, 124);
-      ctx.bezierCurveTo(125, 144, 255, 142, 392, 118);
+      ctx.moveTo(8, 16);
+      ctx.bezierCurveTo(115, 34, 245, 28, 365, 6);
       ctx.stroke();
+      ctx.restore();
 
       return canvas.toDataURL("image/png");
     }
@@ -805,11 +800,13 @@
       docPdf.text(`SERIAL CARROCERÍA: ${p.serialCarroceria}`, 15, y + 31);
       docPdf.text(`EMISIÓN: ${p.fechaEmision}`, 15, y + 37);
 
-      // Logo debajo de EMISIÓN y firma libre en su espacio
+      // Logo debajo de EMISIÓN, firma con raya debajo y FIRMA AUTORIZADA
       dibujarImagenConOpacidad(docPdf, logoIzq, 15, y + 39, 24, 11, 0.70);
-      dibujarImagenConOpacidad(docPdf, firmaImg, 62, y + 31, 32, 13, 0.70);
+      dibujarImagenConOpacidad(docPdf, firmaImg, 62, y + 29, 32, 13, 0.70);
+      docPdf.setDrawColor(15, 23, 42);
+      docPdf.line(60, y + 43, 96, y + 43);
       docPdf.setFontSize(6.5);
-      docPdf.text("FIRMA AUTORIZADA", 78, y + 47, { align: "center" });
+      docPdf.text("FIRMA AUTORIZADA", 78, y + 47.5, { align: "center" });
 
       // CARNET DERECHO
       docPdf.rect(110, y, 94, 52);
